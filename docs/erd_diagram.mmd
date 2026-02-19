@@ -1,1 +1,46 @@
+# Diagrama ER - Sistema de Membresías
 
+```mermaid
+erDiagram
+
+    USUARIO {
+        int id_usuario PK
+        string nombre
+        string correo
+        string contrasena
+        string telefono
+    }
+
+    MEMBRESIA {
+        int id_membresia PK
+        string nombre_plan
+        string descripcion
+        decimal precio
+    }
+
+    INCLUYE {
+        int id_incluye PK
+        string tipo_servicio
+        string descripcion
+    }
+
+    PAGO {
+        int id_pago PK
+        date fecha_pago
+        decimal monto
+        string metodo_pago
+        string estado_pago
+    }
+
+    SUSCRIPCION {
+        int id_suscripcion PK
+        date fecha_inicio
+        date fecha_fin
+        string estado
+    }
+
+    USUARIO ||--o{ SUSCRIPCION : contrata
+    MEMBRESIA ||--o{ SUSCRIPCION : pertenece_a
+    MEMBRESIA ||--o{ INCLUYE : incluye
+    SUSCRIPCION ||--|| PAGO : genera
+```
