@@ -2,7 +2,6 @@
 
 ```mermaid
 erDiagram
-
     USUARIO {
         int id_usuario PK
         string nombre
@@ -15,7 +14,7 @@ erDiagram
         int id_membresia PK
         string nombre_plan
         string descripcion
-        decimal precio
+        float precio
     }
 
     INCLUYE {
@@ -27,7 +26,7 @@ erDiagram
     PAGO {
         int id_pago PK
         date fecha_pago
-        decimal monto
+        float monto
         string metodo_pago
         string estado_pago
     }
