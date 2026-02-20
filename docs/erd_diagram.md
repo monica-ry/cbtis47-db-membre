@@ -6,7 +6,7 @@ erDiagram
         string nombre
         string correo
         string telefono
-        string contrasena
+        string contraseña
     }
 
     MEMBRESIA {
