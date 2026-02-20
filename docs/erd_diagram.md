@@ -1,32 +1,19 @@
 ```mermaid
 erDiagram
+
     USUARIO {
         int id_usuario PK
         string nombre
         string correo
-        string contrasena
         string telefono
+        string contrasena
     }
 
     MEMBRESIA {
         int id_membresia PK
-        string nombre_plan
+        string tipo_plan
         string descripcion
-        float precio
-    }
-
-    INCLUYE {
-        int id_incluye PK
-        string tipo_servicio
-        string descripcion
-    }
-
-    PAGO {
-        int id_pago PK
-        date fecha_pago
-        float monto
-        string metodo_pago
-        string estado_pago
+        decimal precio
     }
 
     SUSCRIPCION {
@@ -34,10 +21,19 @@ erDiagram
         date fecha_inicio
         date fecha_fin
         string estado
+        int id_usuario FK
+        int id_membresia FK
     }
 
-    USUARIO ||--o{ SUSCRIPCION : contrata
-    MEMBRESIA ||--o{ SUSCRIPCION : pertenece_a
-    MEMBRESIA ||--o{ INCLUYE : incluye
+    PAGO {
+        int id_pago PK
+        string numero_tarjeta
+        date fecha_pago
+        decimal monto
+        int id_suscripcion FK
+    }
+
+    USUARIO ||--o{ SUSCRIPCION : tiene
+    MEMBRESIA ||--o{ SUSCRIPCION : pertenece
     SUSCRIPCION ||--|| PAGO : genera
 ```
