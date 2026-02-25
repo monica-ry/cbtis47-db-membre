@@ -1,39 +1,39 @@
 ```mermaid
 erDiagram
 
-    USUARIO {
-        int id_usuario PK
-        string nombre
-        string correo
-        string telefono
-        string contraseña
+    USER {
+        int id_user PK
+        string name
+        string mail
+        string phone
+        string password
     }
 
-    MEMBRESIA {
-        int id_membresia PK
-        string tipo_plan
-        string descripcion
-        decimal precio
+    AFFILIATION {
+        int id_affiliation PK
+        string plan_type
+        string description
+        decimal pay
     }
 
-    SUSCRIPCION {
-        int id_suscripcion PK
-        date fecha_inicio
-        date fecha_fin
-        string estado
-        int id_usuario FK
-        int id_membresia FK
+    SUBSCRIPTION {
+        int id_subscription PK
+        date start_date
+        date finish_date
+        string state
+        int id_user FK
+        int id_affiliation FK
     }
 
-    PAGO {
-        int id_pago PK
-        string numero_tarjeta
-        date fecha_pago
-        decimal monto
-        int id_suscripcion FK
+    PAY {
+        int id_pay PK
+        string card_number
+        date pay_date
+        decimal amount
+        int id_subscription FK
     }
 
-    USUARIO ||--o{ SUSCRIPCION : tiene
-    MEMBRESIA ||--o{ SUSCRIPCION : pertenece
-    SUSCRIPCION ||--|| PAGO : genera
+    USER ||--o{ SUBSCRIPTION : has
+    AFFILIATION ||--o{ SUBSCRIPTION : belongs
+    SUBSCRIPTION ||--|| PAY : generates
 ```
