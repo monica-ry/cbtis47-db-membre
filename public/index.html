@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Amusement Park Login</title>
+</head>
+
+<body>
+
+    <div class="header">Amusement Park</div>
+    <div class="sub">Login to access your membership</div>
+
+    <div class="container">
+
+        <div class="left-panel">
+            <div class="card">
+                <h2>User Access</h2>
+                <p>Login pls</p>
+
+                <input type="text" id="userEmail" placeholder="Email or Username">
+                <input type="password" id="userPassword" placeholder="Password">
+                <p id="userError" class="error-message"></p>
+
+                <button onclick="loginUser()">Login</button>
+
+                <p style="margin-top:10px;">
+                    Don't have an account?
+                    <a href="register.html">Register</a>
+                </p>
+                <p style="margin-top:10px;">
+                    <a href="dashboard.html" id="guestAccess">Enter without login</a>
+                </p>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="wheel-scene" id="wheelScene">
+                <div class="wheel" id="wheelEl">
+                    <div class="spoke" style="transform:rotate(0deg)"></div>
+                    <div class="spoke" style="transform:rotate(45deg)"></div>
+                    <div class="spoke" style="transform:rotate(90deg)"></div>
+                    <div class="spoke" style="transform:rotate(135deg)"></div>
+                    <div class="spoke" style="transform:rotate(180deg)"></div>
+                    <div class="spoke" style="transform:rotate(225deg)"></div>
+                    <div class="spoke" style="transform:rotate(270deg)"></div>
+                    <div class="spoke" style="transform:rotate(315deg)"></div>
+                </div>
+                <div class="hub"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/auth.js"></script>
+</body>
+
+</html>

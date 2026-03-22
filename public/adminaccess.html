@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Amusement Park Login for Admins</title>
+</head>
+
+<body>
+
+    <div class="header">Amusement Park</div>
+    <div class="sub">Login pretty-admin waza</div>
+
+    <div class="container">
+
+        <div class="left-panel">
+            <div class="card">
+                <h2>Administrator Access</h2>
+                <p>Top secretxd</p>
+
+                <input type="text" id="adminEmail" placeholder="Admin Username">
+                <input type="password" id="adminPassword" placeholder="Password">
+                <p id="adminError" class="error-message"></p>
+
+                <button onclick="loginAdmin()">Login</button>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="wheel-scene" id="wheelScene">
+                <div class="wheel" id="wheelEl">
+                    <div class="spoke" style="transform:rotate(0deg)"></div>
+                    <div class="spoke" style="transform:rotate(45deg)"></div>
+                    <div class="spoke" style="transform:rotate(90deg)"></div>
+                    <div class="spoke" style="transform:rotate(135deg)"></div>
+                    <div class="spoke" style="transform:rotate(180deg)"></div>
+                    <div class="spoke" style="transform:rotate(225deg)"></div>
+                    <div class="spoke" style="transform:rotate(270deg)"></div>
+                    <div class="spoke" style="transform:rotate(315deg)"></div>
+                </div>
+                <div class="hub"></div>
+            </div>
+        </div>
+
+        <script src="js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memberships</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <div class="top-menu">
+        <div class="menu-logo">
+            <img src="images/logo.png">
+        </div>
+
+        <div class="menu-links">
+            <div class="menu-item">Membership</div>
+            <div class="menu-item" onclick="location.href='attractions.html'">Games</div>
+            <div class="menu-item" onclick="location.href='restaurants.html'">Restaurant</div>
+            <div class="menu-item" onclick="location.href='info.html'">Park information</div>
+        </div>
+
+        <div class="menu-msg">
+            <img src="images/msspark.png">
+        </div>
+    </div>
+
+    <div class="header">Memberships</div>
+
+    <div class="membership-container" id="membershipContainer"></div>
+
+    <template id="membershipTemplate">
+        <div class="membership-card">
+            <h3 class="planType"></h3>
+            <p class="planDescription"></p>
+            <p class="membership-price planPrice"></p>
+            <p class="planDuration"></p>
+            <button class="buy-btn">Comprar</button>
+        </div>
+    </template>
+
+
+    <!-- MODAL -->
+    <div class="modal-overlay" id="modalOverlay"></div>
+
+    <div class="modal" id="buyModal">
+
+        <div class="modal-content">
+
+            <div class="modal-left">
+                <label>Fecha de inicio:</label>
+                <input type="date" id="startDate">
+
+                <label>Fecha de fin:</label>
+                <input type="date" id="endDate" disabled>
+            </div>
+
+            <div class="modal-right">
+
+                <h3 id="planType"></h3>
+                <p id="planDescription"></p>
+                <p id="planDuration"></p>
+                <p class="membership-price" id="planPrice"></p>
+
+                <div class="ticket-selector">
+                    <p>Elija su número de entradas</p>
+
+                    <div class="ticket-controls">
+                        <button id="minusTicket">-</button>
+                        <span id="ticketCount">1</span>
+                        <button id="plusTicket">+</button>
+                    </div>
+                </div>
+
+                <p class="total-price">
+                    Total: <span id="totalPrice"></span>
+                </p>
+
+                <button id="confirmBuy" type="button">Comprar ahora</button>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <script src="js/memberships.js"></script>
+
+</body>
+
+</html>

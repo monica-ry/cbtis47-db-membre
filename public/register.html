@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Register - Amusement Park</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <h1 class="header">Amusement Park</h1>
+    <p class="sub">Create your account</p>
+
+    <div class="container">
+        <div class="card" style="max-width:500px; width:100%;">
+            <h2>Register</h2>
+
+            <input type="text" id="regUsername" placeholder="Username">
+            <input type="email" id="regEmail" placeholder="Email">
+            <input type="tel" id="regPhone" placeholder="Phone Number">
+            <input type="password" id="regPassword" placeholder="Password">
+            <p id="registerError" class="error-message"></p>
+
+            <button onclick="registerUser()">Create Account</button>
+
+            <p style="margin-top:15px;">
+                Already have an account?
+                <a href="index.html">Login here</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+
+</html>

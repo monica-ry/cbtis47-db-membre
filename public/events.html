@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Park Events</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <!-- MENU -->
+    <div class="top-menu">
+
+        <div class="menu-logo">
+            <img src="images/logo.png">
+        </div>
+
+        <div class="menu-links">
+
+            <div class="menu-item" onclick="checkAccess('memberships.html')">
+                Membership
+            </div>
+
+            <div class="menu-item" onclick="location.href='games.html'">
+                Games
+            </div>
+
+            <div class="menu-item" onclick="location.href='restaurants.html'">
+                Restaurant
+            </div>
+
+            <div class="menu-item" onclick="location.href='info.html'">
+                Park information
+            </div>
+
+        </div>
+
+        <div class="menu-msg" onclick="checkAccess('messages.html')">
+            <img src="images/msspark.png">
+        </div>
+
+    </div>
+    <h1 class="header">Recent Events</h1>
+
+<div class="content-container" id="eventsContainer"></div>
+
+<script src="js/events.js"></script>
+
+</body>
+
+</html>

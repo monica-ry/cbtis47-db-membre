@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Escáner de Tickets</title>
+
+    <script src="https://unpkg.com/html5-qrcode"></script>
+
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        #reader {
+            width: 400px;
+            margin: auto;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <h1>Escáner de Tickets</h1>
+
+    <div id="reader"></div>
+
+    <div id="result"></div>
+
+    <script src="js/scanner.js"></script>
+
+</body>
+
+</html>
