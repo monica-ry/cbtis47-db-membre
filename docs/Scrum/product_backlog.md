@@ -25,8 +25,10 @@ Develop a modern and scalable web platform that allows users to manage their exp
 - Purchase memberships
 - Make payments
 - Access dashboard
-- Validate park access
+- Digital membership-based park access validation
 - Manage personal information
+- View purchased memberships
+- Access membership codes
 
 ---
 
@@ -40,6 +42,7 @@ Develop a modern and scalable web platform that allows users to manage their exp
 - Monitor payments
 - Validate user access
 - Access administration dashboard
+- Validate digital membership codes
 
 ---
 
@@ -84,12 +87,12 @@ Develop a modern and scalable web platform that allows users to manage their exp
 | ID | Epic | Description |
 |---|---|---|
 | EP-01 | User Management | User registration, login, and role management |
-| EP-02 | Membership System | Membership purchase and administration |
+| EP-02 | Membership System | Membership purchase, code generation, expiration management, and administration |
 | EP-03 | Payments | Payment registration and validation |
 | EP-04 | Park Catalog | Games, restaurants, and park information |
 | EP-05 | Events Management | Event visualization and management |
 | EP-06 | Dashboard System | User and admin dashboards |
-| EP-07 | Access Validation | Membership validation for park access |
+| EP-07 | Access Validation | Membership and digital access code validation |
 | EP-08 | UI/UX Redesign | Complete redesign of the system interface |
 | EP-09 | Messaging System | Communication between users and admins |
 
@@ -109,6 +112,7 @@ As a user, I want to register so that I can access the platform.
 ### Acceptance Criteria
 
 #### Gherkin
+
 ```gherkin
 Given the user is on the registration page
 When the user enters valid information
@@ -128,6 +132,7 @@ As a user, I want to securely log in so that I can access my account.
 ### Acceptance Criteria
 
 #### Gherkin
+
 ```gherkin
 Given the user has a registered account
 When the user enters a valid email and password
@@ -147,12 +152,72 @@ As a user, I want to purchase memberships so that I can access park services.
 ### Acceptance Criteria
 
 #### Gherkin
+
 ```gherkin
 Given the user is viewing available memberships
 When the user selects a membership
 And completes the payment
 Then the membership should become active
 And the subscription should be stored in the database
+```
+
+---
+
+## US-17 — Automatic Membership Code Generation
+
+### User Story
+As a user, I want the platform to automatically generate a unique membership code so that I can use it for park access validation without downloading PDF tickets.
+
+### Acceptance Criteria
+
+#### Gherkin
+
+```gherkin
+Given the user has purchased a membership successfully
+When the payment is confirmed
+Then the system should automatically generate a unique access code
+And the code should be linked to the user membership
+And the code should be stored in the database
+And the code should be available from the user account panel
+```
+
+---
+
+## US-18 — Membership Expiration Control
+
+### User Story
+As a user, I want expired memberships to be automatically disabled so that only active memberships can be used for park access.
+
+### Acceptance Criteria
+
+#### Gherkin
+
+```gherkin
+Given a membership has reached its expiration date
+When the system validates the membership
+Then the membership status should change to expired
+And the access code should become invalid
+And the system should display an expiration message
+```
+
+---
+
+## US-19 — User Membership Panel
+
+### User Story
+As a user, I want a panel where I can view all memberships I have purchased so that I can access my active codes directly from the platform.
+
+### Acceptance Criteria
+
+#### Gherkin
+
+```gherkin
+Given the user has purchased memberships
+When the user opens the membership panel
+Then the system should display only memberships owned by the user
+And each membership should display its status
+And active memberships should display their access code
+And expired memberships should display an expiration message
 ```
 
 ---
@@ -167,6 +232,7 @@ As a user, I want to register payments so that my membership can be activated.
 ### Acceptance Criteria
 
 #### Gherkin
+
 ```gherkin
 Given the user has selected a membership
 When the payment is processed successfully
@@ -186,6 +252,7 @@ As a user, I want to browse games available in the park so that I can plan my vi
 ### Acceptance Criteria
 
 #### Gherkin
+
 ```gherkin
 Given the user is on the games section
 When the system loads available games
@@ -203,6 +270,7 @@ As a user, I want to browse restaurants so that I can see food options inside th
 ### Acceptance Criteria
 
 #### Gherkin
+
 ```gherkin
 Given the user enters the restaurants section
 When the restaurants are loaded
@@ -221,6 +289,7 @@ As a user, I want to view upcoming events so that I can participate in park acti
 ### Acceptance Criteria
 
 #### Gherkin
+
 ```gherkin
 Given the user accesses the events section
 When events are available
@@ -240,6 +309,7 @@ As a user, I want to view the dashboard after login so that I can quickly access
 ### Acceptance Criteria
 
 #### Gherkin
+
 ```gherkin
 Given the user has logged in successfully
 When the dashboard loads
@@ -257,6 +327,7 @@ As an admin, I want an improved administration dashboard so that I can manage th
 ### Acceptance Criteria
 
 #### Gherkin
+
 ```gherkin
 Given the admin logs into the system
 When the admin dashboard is opened
@@ -276,11 +347,32 @@ As an admin, I want to validate memberships so that only valid users can access 
 ### Acceptance Criteria
 
 #### Gherkin
+
 ```gherkin
 Given the admin searches for a membership
 When the membership is active and not expired
 Then access should be approved
 And the validation timestamp should be stored
+```
+
+---
+
+## US-20 — Access Code Validation
+
+### User Story
+As an admin, I want to validate user-generated membership codes so that park access can be controlled digitally.
+
+### Acceptance Criteria
+
+#### Gherkin
+
+```gherkin
+Given the admin enters or scans a membership code
+When the code exists and belongs to an active membership
+Then the system should approve park access
+And register the validation attempt
+Else the system should deny access
+And display an invalid or expired membership message
 ```
 
 ---
@@ -295,6 +387,7 @@ As a user, I want a redesigned modern interface so that the platform feels more 
 ### Acceptance Criteria
 
 #### Gherkin
+
 ```gherkin
 Given the user accesses the platform
 When the new interface loads
@@ -314,6 +407,7 @@ As a user, I want to contact administrators through messages so that I can recei
 ### Acceptance Criteria
 
 #### Gherkin
+
 ```gherkin
 Given the user opens the messaging section
 When the user sends a message
@@ -331,6 +425,8 @@ And the conversation should be stored
 | Payments | Subscription |
 | Dashboard | Login |
 | Access Validation | Subscription |
+| Membership Codes | Payments, Subscription |
+| Membership Panel | Authentication, Subscription |
 | Messaging | Users |
 | Admin Panel | Authentication |
 
@@ -345,6 +441,8 @@ And the conversation should be stored
 | Backend route conflicts | Medium |
 | Poor code organization | High |
 | Responsive issues | Medium |
+| Membership expiration synchronization errors | Medium |
+| Invalid code generation conflicts | High |
 
 ---
 
@@ -360,6 +458,9 @@ And the conversation should be stored
 | Restaurants | Completed |
 | Games | Completed |
 | UI Redesign | In Progress |
+| Membership Code System | Planned |
+| User Membership Panel | Planned |
+| Access Code Validation | Planned |
 | Messaging System | Planned |
 | Super Admin | Future Version |
 
@@ -373,6 +474,11 @@ And the conversation should be stored
 - Carousel animations
 - Promotions section
 - Better animations and UI effects
+- Automatic membership code generation
+- Digital membership validation system
+- Membership expiration automation
+- QR or barcode validation system
+- User membership management panel
 
 ---
 
