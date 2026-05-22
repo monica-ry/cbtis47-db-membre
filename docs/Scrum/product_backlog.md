@@ -1,487 +1,280 @@
-# LU LOO LAND – PRODUCT BACKLOG
-
-# 1. PRODUCT VISION
-
-Lu Loo Land is a full-stack web platform developed for amusement park management.  
-The system centralizes park services such as memberships, payments, games, events, restaurants, and administrative control through a scalable and responsive web application.
-
-The platform is designed to improve user experience while providing administrators with efficient tools for managing park operations.
+dame todo en formato markdowm para copiar y pegar en mi repo
+# LU LOO LAND – PRODUCT BACKLOG (SECURE VERSION)
 
 ---
 
-# 2. PRODUCT GOAL
+# 1. PRODUCT GOAL
 
-Develop a modern and scalable web platform that allows users to manage their experience inside Lu Loo Land, including memberships, payments, events, and park access, while providing administrators with efficient operational management and system control tools.
+Develop a modern, secure, and scalable web platform for Lu Loo Land that allows users to manage their experience inside the park, including memberships, payments, events, and access validation, while providing administrators with efficient control tools.
 
----
-
-# 3. SYSTEM ROLES
-
-## User
-
-### Permissions
-- Register and log into the system
-- View games, restaurants, and events
-- Purchase memberships
-- Make payments
-- Access dashboard
-- Digital membership-based park access validation
-- Manage personal information
-- View purchased memberships
-- Access membership codes
+The system must handle success and failure scenarios, ensuring strong security, strict data validation, authentication protection, and safe handling of system errors such as invalid inputs, failed payments, expired memberships, duplicate requests, and unauthorized access attempts.
 
 ---
 
-## Admin
-
-### Permissions
-- Manage games
-- Manage restaurants
-- Manage events
-- Manage memberships
-- Monitor payments
-- Validate user access
-- Access administration dashboard
-- Validate digital membership codes
-
----
-
-## Super Admin (Future Version)
-
-### Permissions
-- Full system control
-- Manage admins
-- Access advanced analytics
-- Configure system settings
-- Monitor platform activity
-
----
-
-# 4. TECHNOLOGY STACK
-
-## Frontend
-- HTML5
-- CSS3
-- JavaScript
-- Fetch API
-
-## Backend
-- Node.js
-- Express.js
-
-## Database
-- MySQL / MariaDB
-
-## Security
-- bcrypt password encryption
-
-## Architecture
-- REST API
-- Client-Server Architecture
-- Full Stack Web Application
-
----
-
-# 5. EPICS
+# 2. EPICS
 
 | ID | Epic | Description |
 |---|---|---|
-| EP-01 | User Management | User registration, login, and role management |
-| EP-02 | Membership System | Membership purchase, code generation, expiration management, and administration |
-| EP-03 | Payments | Payment registration and validation |
-| EP-04 | Park Catalog | Games, restaurants, and park information |
-| EP-05 | Events Management | Event visualization and management |
+| EP-01 | User Management | Secure registration, login, and account control |
+| EP-02 | Membership System | Purchase, code generation, expiration control |
+| EP-03 | Payments | Secure transaction processing |
+| EP-04 | Park Catalog | Games, restaurants, and park data |
+| EP-05 | Events Management | Event listing and viewing |
 | EP-06 | Dashboard System | User and admin dashboards |
-| EP-07 | Access Validation | Membership and digital access code validation |
-| EP-08 | UI/UX Redesign | Complete redesign of the system interface |
-| EP-09 | Messaging System | Communication between users and admins |
+| EP-07 | Access Validation | Membership and code validation |
+| EP-08 | UI/UX Redesign | Modern responsive interface |
+| EP-09 | Messaging System | User-admin communication |
 
 ---
 
-# 6. USER STORIES
+# 3. USER STORIES
 
 ---
 
 # EP-01 — User Management
 
-## US-01 — User Registration
-
-### User Story
-As a user, I want to register so that I can access the platform.
-
-### Acceptance Criteria
-
-#### Gherkin
+## US-01 — Secure User Registration
 
 ```gherkin
 Given the user is on the registration page
-When the user enters valid information
-And submits the registration form
-Then the account should be created successfully
-And the user data should be stored in MySQL
-And the password should be encrypted using bcrypt
+When the user submits the form
+Then the system must validate:
+
+- Email must have a valid format
+- Email must not already exist in the system
+- Password must be at least 8 characters long
+- Password must include at least 1 number
+- Password must include at least 1 special character
+- Password must NOT be weak (e.g. "123456", "password", "admin")
+
+If all validations pass:
+Then the account must be created successfully
+And the password must be encrypted using bcrypt
+And the user must be stored in the database
+
+If invalid data is provided:
+Then the system must reject the registration and show validation errors
+
+If a database or server error occurs:
+Then no account must be created and a generic error message must be shown without exposing internal details
 ```
-
----
-
-## US-02 — User Login
-
-### User Story
-As a user, I want to securely log in so that I can access my account.
-
-### Acceptance Criteria
-
-#### Gherkin
+## US-02 — Secure Login
 
 ```gherkin
-Given the user has a registered account
-When the user enters a valid email and password
-Then the system should validate the encrypted password
-And redirect the user to the dashboard
+Given a registered user
+When the user attempts to log in
+Then the system must:
+
+- Verify if the user exists
+- Validate the encrypted password using bcrypt
+- Deny access if credentials are incorrect
+- Deny access if the account is inactive or suspended
+
+If multiple failed login attempts occur:
+Then the system must temporarily lock the account for security reasons
+
+If the database is unavailable:
+Then the system must return a safe error message without exposing system details
 ```
-
----
-
-# EP-02 — Membership System
-
+## EP-02 — Membership System
 ## US-07 — Purchase Membership
 
-### User Story
-As a user, I want to purchase memberships so that I can access park services.
+```gherkin
+Given a user selects a membership
+When the payment is processed
+Then:
 
-### Acceptance Criteria
-
-#### Gherkin
+- The user must be authenticated
+- Payment must be confirmed before activation
+- If payment succeeds, the membership is activated
+- If payment fails, no membership is created
+- Duplicate payment attempts must be prevented
+```
+US-17 — Automatic Membership Code Generation
 
 ```gherkin
-Given the user is viewing available memberships
-When the user selects a membership
-And completes the payment
-Then the membership should become active
-And the subscription should be stored in the database
+Given a successful payment
+When the membership is activated
+Then:
+
+- A unique access code must be generated
+- Duplicate codes must never exist
+- The code must be stored in the database
+- The code must be visible in the user dashboard
+
+If code generation fails:
+Then the membership must remain in "pending code" state
+
+If database failure occurs:
+Then the system must not assign a code and must retry automatically
+
 ```
-
----
-
-## US-17 — Automatic Membership Code Generation
-
-### User Story
-As a user, I want the platform to automatically generate a unique membership code so that I can use it for park access validation without downloading PDF tickets.
-
-### Acceptance Criteria
-
-#### Gherkin
-
-```gherkin
-Given the user has purchased a membership successfully
-When the payment is confirmed
-Then the system should automatically generate a unique access code
-And the code should be linked to the user membership
-And the code should be stored in the database
-And the code should be available from the user account panel
-```
-
----
-
 ## US-18 — Membership Expiration Control
 
-### User Story
-As a user, I want expired memberships to be automatically disabled so that only active memberships can be used for park access.
-
-### Acceptance Criteria
-
-#### Gherkin
-
 ```gherkin
-Given a membership has reached its expiration date
-When the system validates the membership
-Then the membership status should change to expired
-And the access code should become invalid
-And the system should display an expiration message
-```
+Given a membership reaches its expiration date
+Then:
 
----
+- The system must mark it as expired automatically
+- The access code must be invalidated
+- Expired memberships must be rejected during validation
+
+If system time mismatch occurs:
+Then server time must be used for validation
+
+If a user attempts to use an expired membership:
+Then access must be denied
+```
 
 ## US-19 — User Membership Panel
 
-### User Story
-As a user, I want a panel where I can view all memberships I have purchased so that I can access my active codes directly from the platform.
+```gherkin
+Given an authenticated user
+When opening the membership panel
+Then:
 
-### Acceptance Criteria
+- Only the user's memberships must be displayed
+- Each membership must show its status (active, expired, pending)
+- Active memberships must display their access code
 
-#### Gherkin
+If no memberships exist:
+Then an empty state message must be shown
+
+If data loading fails:
+Then a retry option must be shown without exposing sensitive data
+```
+## EP-03 — Payments
+## US-08 — Payment Processing
 
 ```gherkin
-Given the user has purchased memberships
-When the user opens the membership panel
-Then the system should display only memberships owned by the user
-And each membership should display its status
-And active memberships should display their access code
-And expired memberships should display an expiration message
+Given a user attempts a payment
+Then:
+
+- The user must be authenticated
+- Payment must be processed through a secure gateway
+- Successful payments activate memberships
+- Failed payments must not create memberships
+
+If duplicate confirmations occur:
+Then duplicates must be ignored
+
+If payment gateway is down:
+Then the transaction must be marked as failed safely
 ```
-
----
-
-# EP-03 — Payments
-
-## US-08 — Payment Registration
-
-### User Story
-As a user, I want to register payments so that my membership can be activated.
-
-### Acceptance Criteria
-
-#### Gherkin
+## EP-04 — Park Catalog
+## US-04 — View Games
 
 ```gherkin
-Given the user has selected a membership
-When the payment is processed successfully
-Then the payment should be registered
-And the membership status should change to active
+Given a user accesses the games section
+Then:
+
+- Only valid data must be displayed
+- If no games exist, show empty state
+- If database fails, show controlled error message
 ```
-
----
-
-# EP-04 — Park Catalog
-
-## US-04 — Browse Games
-
-### User Story
-As a user, I want to browse games available in the park so that I can plan my visit.
-
-### Acceptance Criteria
-
-#### Gherkin
+## US-05 — View Restaurants
 
 ```gherkin
-Given the user is on the games section
-When the system loads available games
-Then the games list should be displayed correctly
-And each game should show its information
+Given a user accesses the restaurants section
+Then:
+
+- Only valid restaurant data must be displayed
+- Missing images must use a fallback image
+- If no data exists, show empty state
 ```
 
----
-
-## US-05 — Browse Restaurants
-
-### User Story
-As a user, I want to browse restaurants so that I can see food options inside the park.
-
-### Acceptance Criteria
-
-#### Gherkin
-
-```gherkin
-Given the user enters the restaurants section
-When the restaurants are loaded
-Then the system should display restaurant information correctly
-```
-
----
-
-# EP-05 — Events Management
-
+## EP-05 — Events Management
 ## US-06 — View Events
 
-### User Story
-As a user, I want to view upcoming events so that I can participate in park activities.
-
-### Acceptance Criteria
-
-#### Gherkin
-
 ```gherkin
-Given the user accesses the events section
-When events are available
-Then the system should display upcoming events
-And show their dates and descriptions
+Given a user accesses the events section
+Then:
+
+- Only valid events must be displayed
+- Corrupted or incomplete events must be ignored
+- If no events exist, show empty state
 ```
 
----
-
-# EP-06 — Dashboard System
-
+## EP-06 — Dashboard System
 ## US-03 — User Dashboard
 
-### User Story
-As a user, I want to view the dashboard after login so that I can quickly access platform features.
-
-### Acceptance Criteria
-
-#### Gherkin
-
 ```gherkin
-Given the user has logged in successfully
-When the dashboard loads
-Then the system should display user information
-And provide navigation to system modules
-```
+Given a user logs in successfully
+Then:
 
----
+- The dashboard must load correctly
+- Expired sessions must redirect to login
+- System errors must not expose sensitive data
+```
 
 ## US-15 — Admin Dashboard
 
-### User Story
-As an admin, I want an improved administration dashboard so that I can manage the system efficiently.
-
-### Acceptance Criteria
-
-#### Gherkin
-
 ```gherkin
-Given the admin logs into the system
-When the admin dashboard is opened
-Then administrative modules should be accessible
-And system statistics should be displayed
+Given an admin logs in
+Then:
+
+- Admin panel must be accessible
+- Unauthorized users must be blocked
+- Partial system failures must not break the dashboard
 ```
 
----
-
-# EP-07 — Access Validation
-
+## EP-07 — Access Validation
 ## US-12 — Membership Validation
 
-### User Story
-As an admin, I want to validate memberships so that only valid users can access the park.
-
-### Acceptance Criteria
-
-#### Gherkin
-
 ```gherkin
-Given the admin searches for a membership
-When the membership is active and not expired
-Then access should be approved
-And the validation timestamp should be stored
-```
+Given a membership is validated
+Then:
 
----
+- It must exist in the database
+- It must not be expired
+- It must belong to the correct user
+
+If validation fails:
+Then access must be denied for security reasons
+```
 
 ## US-20 — Access Code Validation
 
-### User Story
-As an admin, I want to validate user-generated membership codes so that park access can be controlled digitally.
-
-### Acceptance Criteria
-
-#### Gherkin
-
 ```gherkin
-Given the admin enters or scans a membership code
-When the code exists and belongs to an active membership
-Then the system should approve park access
-And register the validation attempt
-Else the system should deny access
-And display an invalid or expired membership message
+Given an access code is scanned or entered
+Then:
+
+- The code must exist in the database
+- The code must be active and not expired
+- The code must match a valid membership
+
+If the code is invalid:
+Then access must be denied
+
+If multiple invalid attempts occur:
+Then suspicious activity must be logged
 ```
 
----
-
-# EP-08 — UI/UX Redesign
-
+## EP-08 — UI/UX Redesign
 ## US-14 — Modern Interface
 
-### User Story
-As a user, I want a redesigned modern interface so that the platform feels more attractive and easier to use.
-
-### Acceptance Criteria
-
-#### Gherkin
-
 ```gherkin
-Given the user accesses the platform
-When the new interface loads
-Then the design should be responsive
-And navigation should be intuitive
+Given a user accesses the system
+Then:
+
+- The interface must be responsive
+- Slow connections must not break the UI
+- Unsupported browsers must display a warning
 ```
 
----
-
-# EP-09 — Messaging System
-
+## EP-09 — Messaging System
 ## US-16 — Messaging System
 
-### User Story
-As a user, I want to contact administrators through messages so that I can receive support.
-
-### Acceptance Criteria
-
-#### Gherkin
-
 ```gherkin
-Given the user opens the messaging section
-When the user sends a message
-Then the administrator should receive the message
-And the conversation should be stored
+Given a user sends a message
+Then:
+
+- The message must be stored in the database
+- The administrator must receive the message
+
+If message sending fails:
+Then the message must be queued for retry
+
+If spam is detected:
+Then the system must block or limit user activity
 ```
-
----
-
-# 7. DEPENDENCIES
-
-| Module | Depends On |
-|---|---|
-| Subscription | Users, Authentication |
-| Payments | Subscription |
-| Dashboard | Login |
-| Access Validation | Subscription |
-| Membership Codes | Payments, Subscription |
-| Membership Panel | Authentication, Subscription |
-| Messaging | Users |
-| Admin Panel | Authentication |
-
----
-
-# 8. RISKS
-
-| Risk | Impact |
-|---|---|
-| MySQL connection failures | High |
-| UI redesign delays | Medium |
-| Backend route conflicts | Medium |
-| Poor code organization | High |
-| Responsive issues | Medium |
-| Membership expiration synchronization errors | Medium |
-| Invalid code generation conflicts | High |
-
----
-
-# 9. CURRENT PROJECT STATUS
-
-| Module | Status |
-|---|---|
-| Login | Completed |
-| Dashboard | Completed |
-| Memberships | Completed |
-| Payments | Completed |
-| Events | Completed |
-| Restaurants | Completed |
-| Games | Completed |
-| UI Redesign | In Progress |
-| Membership Code System | Planned |
-| User Membership Panel | Planned |
-| Access Code Validation | Planned |
-| Messaging System | Planned |
-| Super Admin | Future Version |
-
----
-
-# 10. FUTURE IMPROVEMENTS
-
-- Super Admin Panel
-- Real-time messaging
-- Notifications system
-- Carousel animations
-- Promotions section
-- Better animations and UI effects
-- Automatic membership code generation
-- Digital membership validation system
-- Membership expiration automation
-- QR or barcode validation system
-- User membership management panel
-
----
-
-# 11. CONCLUSION
-
-Lu Loo Land represents a scalable academic full-stack system that applies Scrum methodology, REST architecture, responsive design principles, and relational database management to simulate a real amusement park management platform.
