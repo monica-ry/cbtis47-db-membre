@@ -1,4 +1,3 @@
-dame todo en formato markdowm para copiar y pegar en mi repo
 # LU LOO LAND – PRODUCT BACKLOG (SECURE VERSION)
 
 ---
