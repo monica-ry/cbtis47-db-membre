@@ -483,4 +483,3 @@ Then the system must temporarily limit messaging activity
 And the incident must be logged
 And administrators must be able to review the suspicious activity
 ```
-````
