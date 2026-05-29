@@ -6,10 +6,6 @@
 
 **Duration:** 4 Weeks
 
-### Sprint Goal
-
-Build the initial infrastructure of the Lu Loo Land platform by configuring the development environment, creating the relational database, establishing communication between the backend and MySQL, implementing authentication modules, and developing the first visual prototype using a pastel color palette.
-
 ---
 
 ## User Stories
@@ -132,10 +128,6 @@ Build the initial infrastructure of the Lu Loo Land platform by configuring the 
 
 **Duration:** 4 Weeks
 
-### Sprint Goal
-
-Complete the database structure, implement membership management, payment registration, park catalog modules, dashboard functionality, and begin the project's technical documentation.
-
 ---
 
 ## User Stories
@@ -257,10 +249,6 @@ Complete the database structure, implement membership management, payment regist
 ## Time Allocation
 
 **Duration:** 4 Weeks
-
-### Sprint Goal
-
-Redesign the platform with a modern visual identity, implement access validation and messaging systems, improve security monitoring, optimize performance, and complete all project documentation.
 
 ---
 
