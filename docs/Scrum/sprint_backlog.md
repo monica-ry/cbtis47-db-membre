@@ -109,20 +109,20 @@ Build the initial infrastructure of the Lu Loo Land platform by configuring the 
 
 ## Definition of Done
 
-* [ ] Node.js installed and configured.
-* [ ] Express.js configured successfully.
-* [ ] MySQL installed and operational.
-* [ ] Database created successfully.
-* [ ] Users table implemented.
-* [ ] Backend connected to MySQL.
-* [ ] Password encryption implemented with bcrypt.
-* [ ] User registration operational.
-* [ ] User login operational.
-* [ ] Session management functioning.
-* [ ] Initial user interface completed.
-* [ ] Dashboard available.
-* [ ] Functional tests completed.
-* [ ] Critical bugs resolved.
+* [x] Node.js installed and configured.
+* [x] Express.js configured successfully.
+* [x] MySQL installed and operational.
+* [x] Database created successfully.
+* [x] Users table implemented.
+* [x] Backend connected to MySQL.
+* [x] Password encryption implemented with bcrypt.
+* [x] User registration operational.
+* [x] User login operational.
+* [x] Session management functioning.
+* [x] Initial user interface completed.
+* [x] Dashboard available.
+* [x] Functional tests completed.
+* [x] Critical bugs resolved.
 
 ---
 
