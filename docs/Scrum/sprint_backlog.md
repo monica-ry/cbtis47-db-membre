@@ -1,9 +1,14 @@
 # LU LOO LAND – SPRINT BACKLOG
 
-# SPRINT 1 — DATABASE CREATION, CONNECTION, AND INITIAL DESIGN
+# SPRINT 1 – DATABASE CREATION, SYSTEM CONNECTION, AND INITIAL VISUAL DESIGN
 
 ## Time Allocation
-Total Duration: 4 weeks
+
+**Duration:** 4 Weeks
+
+### Sprint Goal
+
+Build the initial infrastructure of the Lu Loo Land platform by configuring the development environment, creating the relational database, establishing communication between the backend and MySQL, implementing authentication modules, and developing the first visual prototype using a pastel color palette.
 
 ---
 
@@ -11,71 +16,125 @@ Total Duration: 4 weeks
 
 ### US-LUL-01-01 — Secure User Registration
 
+**As a** visitor,
+
+**I want** to register using a username, email address, phone number, and password,
+
+**so that** I can access the platform and manage future memberships.
+
 ### US-LUL-01-02 — Secure Login
 
-### US-LUL-06-03 — Basic User Dashboard
+**As a** registered user,
+
+**I want** to log in using my username or email and password,
+
+**so that** I can securely access my account information.
+
+### US-LUL-06-03 — Initial User Dashboard
+
+**As a** logged-in user,
+
+**I want** to access a dashboard containing the system's main functionalities,
+
+**so that** I can easily navigate through the platform.
 
 ---
 
-## Tasks
+# Tasks
 
-| ID | Task | Description | Estimation |
-|---|---|---|---|
-| T-01 | Create initial database | Create the primary MySQL database | 6 hours |
-| T-02 | Create users table | Create table with username, email, phone number, password, and role | 5 hours |
-| T-03 | Create sessions table | Store active session information | 4 hours |
-| T-04 | Configure backend-database connection | Connect the web system with MySQL | 5 hours |
-| T-05 | Configure project structure | Organize folders, routes, and main files | 4 hours |
-| T-06 | Design home screen | Create the first welcome interface | 6 hours |
-| T-07 | Design registration form | Create registration user interface | 5 hours |
-| T-08 | Design login form | Create login user interface | 5 hours |
-| T-09 | Validate required fields | Ensure no required field is empty | 4 hours |
-| T-10 | Validate email addresses | Detect invalid or duplicate emails | 4 hours |
-| T-11 | Implement bcrypt | Encrypt passwords before saving them | 5 hours |
-| T-12 | Implement functional login | Validate credentials and allow access | 6 hours |
-| T-13 | Create basic dashboard | Display the user's main menu | 6 hours |
-| T-14 | Configure session management | Maintain active user sessions | 5 hours |
-| T-15 | Perform initial testing | Test registration, login, and database connection | 6 hours |
+| ID   | Task                                 | Detailed Description                                                                                                                               | Estimation |
+| ---- | ------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| T-01 | Development Environment Setup        | Installation and configuration of Node.js, npm, Visual Studio Code, Git, and project dependencies required for development.                        | 4 Hours    |
+| T-02 | Backend Project Initialization       | Creation of the Node.js project, installation of Express.js, and organization of folders for routes, controllers, configuration files, and assets. | 5 Hours    |
+| T-03 | MySQL Installation and Configuration | Installation of MySQL Server and phpMyAdmin, configuration of database users, permissions, and security settings.                                  | 4 Hours    |
+| T-04 | Initial Database Modeling            | Analysis of system requirements and creation of the first Entity-Relationship model for users, subscriptions, payments, and related entities.      | 6 Hours    |
+| T-05 | Lu Loo Land Database Creation        | Creation of the primary database and initial configuration for future tables and relationships.                                                    | 5 Hours    |
+| T-06 | Users Table Development              | Creation of the users table including username, email, phone, encrypted password, role, and timestamps.                                            | 4 Hours    |
+| T-07 | Node.js and MySQL Integration        | Installation of mysql2 and dotenv packages, configuration of environment variables, and testing communication between the backend and database.    | 6 Hours    |
+| T-08 | Password Encryption Implementation   | Installation and implementation of bcrypt to securely encrypt user passwords before database storage.                                              | 3 Hours    |
+| T-09 | Registration Module Development      | Development of registration forms, validation logic, duplicate account prevention, and secure user creation.                                       | 8 Hours    |
+| T-10 | Login Module Development             | Development of authentication processes and credential validation against database records.                                                        | 6 Hours    |
+| T-11 | Session Management Setup             | Creation and configuration of user session handling and protected route access.                                                                    | 5 Hours    |
+| T-12 | Initial Visual Design                | Creation of the first visual proposal using pastel colors including soft pink, light blue, soft yellow, and white tones.                           | 8 Hours    |
+| T-13 | Landing Page Design                  | Development of the welcome page containing navigation, login access, registration options, and park information.                                   | 5 Hours    |
+| T-14 | Authentication Screen Design         | Creation of registration and login interfaces following the project's first visual style.                                                          | 5 Hours    |
+| T-15 | Initial Dashboard Development        | Creation of a basic user dashboard to display available platform modules.                                                                          | 6 Hours    |
+| T-16 | Functional Testing                   | Testing database communication, registration, login, sessions, and overall system stability.                                                       | 5 Hours    |
 
 ---
 
 ## Activity Estimation Through Time
 
-| Week | Activities |
-|---|---|
-| Week 1 | Database creation, tables, and connection |
-| Week 2 | Initial interface design |
-| Week 3 | Registration, login, and validations |
-| Week 4 | Dashboard, sessions, and testing |
+### Week 1
+
+* Installation of Node.js, npm, Visual Studio Code, and Git.
+* Backend project initialization.
+* MySQL and phpMyAdmin installation.
+* Initial database design.
+* Creation of the Lu Loo Land database.
+
+### Week 2
+
+* Creation of the users table.
+* Configuration of database connection.
+* Installation of mysql2 and dotenv.
+* Implementation of bcrypt encryption.
+* Registration module development.
+
+### Week 3
+
+* Login module implementation.
+* Session management development.
+* Credential validation.
+* Authentication testing.
+
+### Week 4
+
+* Development of the first user interface.
+* Application of the pastel color palette.
+* Dashboard creation.
+* Functional testing and bug fixing.
 
 ---
 
 ## Impediments and Dependencies
-- Dependency on proper MySQL installation.
-- Dependency on backend server configuration.
-- Possible connection errors.
-- Risk of validation issues.
-- Dependency on correct bcrypt implementation.
+
+* Correct installation of Node.js and MySQL.
+* Proper database credentials configuration.
+* Stable development environment.
+* Potential backend-database communication issues.
+* Dependency on successful database modeling.
 
 ---
 
 ## Definition of Done
-- Database successfully created.
-- System connected to MySQL.
-- Functional and secure registration system.
-- Functional login system.
-- Password encryption implemented.
-- Basic dashboard working.
-- Validations implemented.
-- Initial visual design completed.
-- Initial tests completed without critical errors.
+
+* [ ] Node.js installed and configured.
+* [ ] Express.js configured successfully.
+* [ ] MySQL installed and operational.
+* [ ] Database created successfully.
+* [ ] Users table implemented.
+* [ ] Backend connected to MySQL.
+* [ ] Password encryption implemented with bcrypt.
+* [ ] User registration operational.
+* [ ] User login operational.
+* [ ] Session management functioning.
+* [ ] Initial user interface completed.
+* [ ] Dashboard available.
+* [ ] Functional tests completed.
+* [ ] Critical bugs resolved.
 
 ---
 
-# SPRINT 2 — COMPLETE DATABASE, FINALIZE INITIAL DESIGN, AND START DOCUMENTATION
+# SPRINT 2 – DATABASE COMPLETION, CORE FUNCTIONALITIES, AND INITIAL DOCUMENTATION
 
 ## Time Allocation
-Total Duration: 4 weeks
+
+**Duration:** 4 Weeks
+
+### Sprint Goal
+
+Complete the database structure, implement membership management, payment registration, park catalog modules, dashboard functionality, and begin the project's technical documentation.
 
 ---
 
@@ -83,69 +142,125 @@ Total Duration: 4 weeks
 
 ### US-LUL-02-07 — Membership Purchase
 
+**As a** user,
+
+**I want** to purchase memberships,
+
+**so that** I can access park benefits and services.
+
 ### US-LUL-02-17 — Automatic Membership Code Generation
+
+**As a** user,
+
+**I want** to automatically receive a unique access code after purchasing a membership,
+
+**so that** I can validate my access to the park.
 
 ### US-LUL-03-08 — Secure Payment Processing
 
+**As a** user,
+
+**I want** secure payment processing,
+
+**so that** my membership purchases are completed safely.
+
 ---
 
-## Tasks
+# Tasks
 
-| ID | Task | Description | Estimation |
-|---|---|---|---|
-| T-16 | Create memberships table | Store membership types and prices | 5 hours |
-| T-17 | Create purchases table | Store completed purchases | 5 hours |
-| T-18 | Create payments table | Store transaction information | 5 hours |
-| T-19 | Create codes table | Store unique access codes | 4 hours |
-| T-20 | Design memberships catalog | Display available memberships | 6 hours |
-| T-21 | Implement membership purchases | Allow users to select and purchase memberships | 8 hours |
-| T-22 | Integrate payment gateway | Connect payment services with the platform | 10 hours |
-| T-23 | Validate rejected payments | Detect invalid payment attempts | 5 hours |
-| T-24 | Generate automatic codes | Create unique codes after payment approval | 7 hours |
-| T-25 | Validate duplicate codes | Prevent duplicate access codes | 5 hours |
-| T-26 | Display active memberships | Show user memberships in dashboard | 6 hours |
-| T-27 | Finalize main design | Complete overall platform design | 8 hours |
-| T-28 | Begin technical documentation | Document structure and system functions | 6 hours |
-| T-29 | Perform functional testing | Test payments and memberships | 7 hours |
+| ID   | Task                               | Detailed Description                                                                        | Estimation |
+| ---- | ---------------------------------- | ------------------------------------------------------------------------------------------- | ---------- |
+| T-17 | Membership Database Design         | Creation of database structures for memberships, subscriptions, and payment records.        | 5 Hours    |
+| T-18 | Affiliation Table Development      | Creation of membership plans including pricing, duration, benefits, and descriptions.       | 5 Hours    |
+| T-19 | Subscription Table Development     | Creation of user subscription records including activation, expiration, and usage tracking. | 6 Hours    |
+| T-20 | Payments Table Development         | Creation of payment records linked to user subscriptions.                                   | 5 Hours    |
+| T-21 | Games Table Development            | Creation of park games catalog storage.                                                     | 4 Hours    |
+| T-22 | Restaurants Table Development      | Creation of restaurant catalog storage.                                                     | 4 Hours    |
+| T-23 | Events Table Development           | Creation of events management storage.                                                      | 4 Hours    |
+| T-24 | Park Information Table Development | Creation of park information management structure.                                          | 4 Hours    |
+| T-25 | Membership Catalog Interface       | Development of the membership catalog showing available plans and benefits.                 | 7 Hours    |
+| T-26 | Membership Purchase System         | Development of membership purchasing functionality linked to subscriptions.                 | 8 Hours    |
+| T-27 | Payment Registration Module        | Recording and storing payment information associated with memberships.                      | 7 Hours    |
+| T-28 | Automatic Subscription Creation    | Automatic activation of subscriptions after successful payment confirmation.                | 6 Hours    |
+| T-29 | Membership Validation Rules        | Implementation of expiration and status validation logic.                                   | 5 Hours    |
+| T-30 | Dashboard Expansion                | Display of active memberships, purchase history, and subscription information.              | 6 Hours    |
+| T-31 | Games Catalog Development          | Creation of interfaces for viewing available games.                                         | 5 Hours    |
+| T-32 | Restaurant Catalog Development     | Creation of interfaces for viewing restaurants.                                             | 5 Hours    |
+| T-33 | Events Catalog Development         | Creation of interfaces for viewing upcoming events.                                         | 5 Hours    |
+| T-34 | Initial Technical Documentation    | Creation of ER diagrams, architecture documentation, and technical specifications.          | 8 Hours    |
+| T-35 | Functional Testing                 | Testing memberships, payments, and dashboard modules.                                       | 7 Hours    |
 
 ---
 
 ## Activity Estimation Through Time
 
-| Week | Activities |
-|---|---|
-| Week 1 | Complete database structure and tables |
-| Week 2 | Membership and purchase system |
-| Week 3 | Payment integration and code generation |
-| Week 4 | Final design completion and initial documentation |
+### Week 1
+
+* Creation of affiliation, subscription, and payments tables.
+* Completion of the database structure.
+* Validation of relationships.
+
+### Week 2
+
+* Membership catalog development.
+* Membership purchase functionality.
+* Payment registration implementation.
+
+### Week 3
+
+* Subscription activation.
+* Membership validation.
+* Dashboard expansion.
+* Development of games, restaurants, and events catalogs.
+
+### Week 4
+
+* Technical documentation creation.
+* Architecture documentation.
+* Functional testing.
+* Bug corrections.
 
 ---
 
 ## Impediments and Dependencies
-- Dependency on payment gateway services.
-- Dependency on stable internet connection.
-- Risk of external payment failures.
-- Possible issues with unique code generation.
-- Dependency on successful Sprint 1 completion.
+
+* Dependency on Sprint 1 completion.
+* Database relationship integrity.
+* Payment module stability.
+* Potential data consistency issues.
+* Dashboard integration dependencies.
 
 ---
 
 ## Definition of Done
-- Database structure completed.
-- Membership system fully functional.
-- Payments working correctly.
-- Unique access codes automatically generated.
-- Initial platform design completed.
-- Dashboard updated.
-- Initial technical documentation completed.
-- Functional testing completed successfully.
+
+* [ ] Database structure completed.
+* [ ] Affiliation table implemented.
+* [ ] Subscription table implemented.
+* [ ] Payments table implemented.
+* [ ] Membership catalog operational.
+* [ ] Purchase functionality operational.
+* [ ] Payment registration operational.
+* [ ] Subscription activation operational.
+* [ ] Dashboard expanded successfully.
+* [ ] Games catalog available.
+* [ ] Restaurants catalog available.
+* [ ] Events catalog available.
+* [ ] Initial documentation completed.
+* [ ] Functional tests executed.
+* [ ] Critical defects corrected.
 
 ---
 
-# SPRINT 3 — FINAL REDESIGN, SYSTEM COMPLETION, AND DOCUMENTATION
+# SPRINT 3 – FINAL REDESIGN, SYSTEM COMPLETION, AND FINAL DOCUMENTATION
 
 ## Time Allocation
-Total Duration: 4 weeks
+
+**Duration:** 4 Weeks
+
+### Sprint Goal
+
+Redesign the platform with a modern visual identity, implement access validation and messaging systems, improve security monitoring, optimize performance, and complete all project documentation.
 
 ---
 
@@ -153,60 +268,108 @@ Total Duration: 4 weeks
 
 ### US-LUL-07-20 — Access Code Validation
 
+**As an** administrator,
+
+**I want** to validate user memberships,
+
+**so that** only authorized visitors can access the park.
+
 ### US-LUL-09-16 — Messaging Between User and Administrator
 
-### US-LUL-08-01 — Interface Redesign
+**As a** user,
 
-### US-LUL-10-01 — Security Monitoring
+**I want** to communicate with administrators,
+
+**so that** I can request support and receive assistance.
+
+### US-LUL-08-01 — User Interface Redesign
+
+**As a** user,
+
+**I want** a modern and visually attractive interface,
+
+**so that** my experience feels more engaging and intuitive.
 
 ---
 
-## Tasks
+# Tasks
 
-| ID | Task | Description | Estimation |
-|---|---|---|---|
-| T-30 | Redesign main interface | Improve the visual appearance of the platform | 10 hours |
-| T-31 | Improve responsive design | Adapt the system for mobile devices and tablets | 7 hours |
-| T-32 | Implement access code validation | Verify active memberships | 8 hours |
-| T-33 | Detect invalid codes | Block incorrect access attempts | 5 hours |
-| T-34 | Detect suspicious attempts | Register multiple failed attempts | 6 hours |
-| T-35 | Implement messaging system | Allow communication between users and administrators | 7 hours |
-| T-36 | Validate empty messages | Prevent empty message submissions | 4 hours |
-| T-37 | Implement security logs | Register suspicious activities | 6 hours |
-| T-38 | Optimize performance | Reduce loading times | 6 hours |
-| T-39 | Fix detected errors | Resolve identified bugs | 8 hours |
-| T-40 | Complete technical documentation | Finalize all system documentation | 8 hours |
-| T-41 | Perform final testing | Test the complete system | 10 hours |
+| ID   | Task                               | Detailed Description                                                                                                          | Estimation |
+| ---- | ---------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | ---------- |
+| T-36 | Complete UI Redesign               | Replacement of the initial pastel theme with a dark-themed interface featuring stronger pink, purple, and neon-style accents. | 10 Hours   |
+| T-37 | Animation Implementation           | Development of transitions, hover effects, loading animations, and interactive visual elements.                               | 7 Hours    |
+| T-38 | Responsive Design Optimization     | Adaptation of the platform for mobile phones, tablets, and different screen resolutions.                                      | 6 Hours    |
+| T-39 | Messages Table Development         | Creation of the messaging database structure.                                                                                 | 4 Hours    |
+| T-40 | Messaging System Development       | Development of user-to-administrator communication functionality.                                                             | 8 Hours    |
+| T-41 | Message Status Management          | Implementation of pending, answered, and closed message statuses.                                                             | 5 Hours    |
+| T-42 | Access Validation System           | Development of membership validation and park access verification functionality.                                              | 8 Hours    |
+| T-43 | Expired Membership Detection       | Automatic detection of expired memberships and access restrictions.                                                           | 5 Hours    |
+| T-44 | Suspicious Activity Monitoring     | Logging invalid login attempts, access validation failures, and unusual activity.                                             | 6 Hours    |
+| T-45 | Security Log Development           | Creation of internal records for security monitoring and auditing.                                                            | 5 Hours    |
+| T-46 | Performance Optimization           | Improvement of database queries, page loading times, and frontend efficiency.                                                 | 6 Hours    |
+| T-47 | Bug Resolution                     | Correction of issues detected during previous sprints.                                                                        | 8 Hours    |
+| T-48 | User Manual Creation               | Development of documentation explaining platform usage.                                                                       | 6 Hours    |
+| T-49 | Technical Documentation Completion | Finalization of architecture, database, and implementation documentation.                                                     | 8 Hours    |
+| T-50 | Final System Testing               | End-to-end testing of all platform modules and features.                                                                      | 10 Hours   |
 
 ---
 
 ## Activity Estimation Through Time
 
-| Week | Activities |
-|---|---|
-| Week 1 | Visual redesign and responsive improvements |
-| Week 2 | Access validation and security implementation |
-| Week 3 | Messaging system, optimization, and bug fixing |
-| Week 4 | Final documentation and complete testing |
+### Week 1
+
+* User interface redesign.
+* Dark theme implementation.
+* Neon color palette implementation.
+* Animation development.
+
+### Week 2
+
+* Responsive optimization.
+* Access validation system development.
+* Membership expiration controls.
+* Security monitoring implementation.
+
+### Week 3
+
+* Messaging system implementation.
+* Status management.
+* Security log creation.
+* Performance optimization.
+
+### Week 4
+
+* Final documentation.
+* User manual creation.
+* Final testing.
+* Bug fixing and project closure.
 
 ---
 
 ## Impediments and Dependencies
-- Dependency on previously completed functionalities.
-- Risk of redesign-related issues.
-- Possible performance problems.
-- Dependency on complete technical documentation.
-- Risk of errors detected during final testing.
+
+* Dependency on all previous sprint deliverables.
+* Responsive design compatibility challenges.
+* Potential performance bottlenecks.
+* Security validation complexity.
+* Documentation completion deadlines.
 
 ---
 
 ## Definition of Done
-- Fully functional system completed.
-- Final redesign implemented.
-- Responsive design functioning correctly.
-- Access validation implemented.
-- Messaging system functional.
-- Security and monitoring active.
-- Performance optimization completed.
-- Final documentation completed.
-- System tested without critical errors.
+
+* [ ] Final redesign completed.
+* [ ] Dark theme implemented.
+* [ ] Animations functioning correctly.
+* [ ] Responsive design operational.
+* [ ] Messaging system operational.
+* [ ] Access validation system operational.
+* [ ] Expired membership detection functioning.
+* [ ] Security monitoring active.
+* [ ] Security logs implemented.
+* [ ] Performance optimization completed.
+* [ ] User manual completed.
+* [ ] Technical documentation finalized.
+* [ ] Final testing completed.
+* [ ] Critical issues resolved.
+* [ ] Project ready for delivery.
