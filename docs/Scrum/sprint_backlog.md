@@ -234,19 +234,19 @@ Complete the database structure, implement membership management, payment regist
 
 ## Definition of Done
 
-* [ ] Database structure completed.
-* [ ] Affiliation table implemented.
-* [ ] Subscription table implemented.
-* [ ] Payments table implemented.
-* [ ] Membership catalog operational.
-* [ ] Purchase functionality operational.
-* [ ] Payment registration operational.
-* [ ] Subscription activation operational.
+* [x] Database structure completed.
+* [x]Affiliation table implemented.
+* [x] Subscription table implemented.
+* [x] Payments table implemented.
+* [x] Membership catalog operational.
+* [x] Purchase functionality operational.
+* [x] Payment registration operational.
+* [x] Subscription activation operational.
 * [ ] Dashboard expanded successfully.
-* [ ] Games catalog available.
-* [ ] Restaurants catalog available.
-* [ ] Events catalog available.
-* [ ] Initial documentation completed.
+* [x] Games catalog available.
+* [x] Restaurants catalog available.
+* [x] Events catalog available.
+* [x] Initial documentation completed.
 * [ ] Functional tests executed.
 * [ ] Critical defects corrected.
 
