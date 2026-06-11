@@ -32,3 +32,15 @@
 | pay_date | DATE | | NOT NULL | Payment date |
 | amount | DECIMAL(10,2) | | NOT NULL | Amount paid |
 | id_subscription | INT | FK | NOT NULL | Related subscription |
+---
+## MESSAGES
+| Field | Type | Key | Constraints | Description |
+|------|------|------|-------------|-------------|
+| id | INT | PK | AUTO_INCREMENT | Message identifier |
+| user_id | INT | FK | | User who sent the message |
+| message | TEXT | | | Message content |
+| timestamp | DATETIME | | DEFAULT CURRENT_TIMESTAMP | When message was sent |
+| from_admin | TINYINT(1) | | DEFAULT 0 | 1 if sent by admin, 0 if by user |
+| response | TEXT | | | Admin response text |
+| status | VARCHAR(20) | | DEFAULT 'pending' | Message status (pending, answered) |
+| answered_at | TIMESTAMP | | NULLABLE | When admin replied |

@@ -5,182 +5,324 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memberships</title>
-
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="images/logo.jpeg">
+    <style>
+        .modal-glass {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.05));
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 28px;
+            padding: 32px;
+            width: 480px;
+            z-index: 1001;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+            animation: accountAppear 0.35s ease;
+            color: var(--text);
+        }
+        .modal-glass h2 {
+            color: var(--primary);
+            font-family: var(--font-title);
+            font-size: 1.6rem;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .modal-glass label {
+            display: block;
+            color: rgba(255,255,255,0.6);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+        .modal-glass input {
+            width: 100%;
+            padding: 12px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text);
+            outline: none;
+            box-sizing: border-box;
+            margin-bottom: 16px;
+        }
+        .modal-glass input:focus {
+            border-color: var(--primary);
+        }
+        .modal-glass .row {
+            display: flex;
+            gap: 16px;
+        }
+        .modal-glass .row > div {
+            flex: 1;
+        }
+        .modal-glass .btn-primary {
+            width: 100%;
+            padding: 14px;
+            background: linear-gradient(45deg, var(--primary), #ff7aa2);
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.35s;
+            margin-top: 8px;
+        }
+        .modal-glass .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255,79,135,0.4);
+        }
+        .modal-glass .btn-ghost {
+            width: 100%;
+            padding: 14px;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            color: var(--text);
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 8px;
+        }
+        .modal-glass .btn-ghost:hover {
+            background: rgba(255,255,255,0.1);
+        }
+        .modal-glass .plan-summary {
+            background: rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 16px;
+            margin-bottom: 20px;
+        }
+        .modal-glass .plan-summary h3 {
+            color: var(--primary);
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            margin-bottom: 8px;
+        }
+        .modal-glass .plan-summary p {
+            color: var(--text-soft);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        .modal-glass .price-tag {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-align: center;
+            margin: 12px 0;
+        }
+
+        .my-memberships {
+            max-width: 960px;
+            margin: 50px auto 80px;
+            padding: 0 20px;
+        }
+        .my-memberships-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .my-memberships-header h2 {
+            font-family: var(--font-title);
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 6px;
+        }
+        .my-memberships-header p {
+            color: var(--text-soft);
+            font-size: 0.95rem;
+        }
+        .membership-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .user-membership-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.07), rgba(255,255,255,0.02));
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 18px 22px;
+            backdrop-filter: blur(6px);
+            transition: 0.25s;
+        }
+        .user-membership-card:hover {
+            border-color: var(--primary);
+            box-shadow: 0 4px 20px rgba(255,79,135,0.15);
+        }
+        .umc-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+        .umc-plan-name {
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            color: var(--text);
+        }
+        .umc-status {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 3px 12px;
+            border-radius: 20px;
+            background: rgba(76, 175, 80, 0.15);
+            color: #4caf50;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+        }
+        .umc-status.used {
+            background: rgba(255, 152, 0, 0.15);
+            color: #ff9800;
+            border-color: rgba(255, 152, 0, 0.3);
+        }
+        .umc-status.expired {
+            background: rgba(244, 67, 54, 0.15);
+            color: #f44336;
+            border-color: rgba(244, 67, 54, 0.3);
+        }
+        .umc-dates {
+            font-size: 0.8rem;
+            color: var(--text-soft);
+            margin-bottom: 12px;
+        }
+        .umc-actions {
+            display: flex;
+            gap: 10px;
+        }
+        .umc-ticket-btn {
+            padding: 10px 20px;
+            background: linear-gradient(45deg, var(--primary), #ff7aa2);
+            border: none;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .umc-ticket-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255,79,135,0.35);
+        }
+        .no-memberships {
+            text-align: center;
+            color: var(--text-soft);
+            font-size: 0.95rem;
+            padding: 40px 0;
+        }
+    </style>
 </head>
 
 <body>
 
-    <!-- TOP MENU -->
-    <div class="top-menu">
+    <div id="navbar"></div>
 
-        <div class="menu-logo">
-            <img src="images/logo.jpeg" alt="logo">
-        </div>
-
-        <div class="menu-links">
-
-            <div class="menu-item" onclick="checkAccess('memberships.html')">
-                Membership
-            </div>
-
-            <div class="menu-item" onclick="location.href='games.html'">
-                Games
-            </div>
-
-            <div class="menu-item" onclick="location.href='restaurants.html'">
-                Restaurant
-            </div>
-
-            <div class="menu-item" onclick="location.href='parkInfo.html'">
-                Park information
-            </div>
-
-        </div>
-
-        <div class="menu-msg" onclick="checkAccess('messages.html')">
-            <img src="images/msspark.png" alt="messages">
-        </div>
-
-        <div class="menu-profile" id="accountButton">
-            <span id="userName">Log in</span>
-        </div>
-
-    </div>
-
-    <!-- TITLE -->
     <div class="header">Memberships</div>
 
-    <!-- CONTAINER -->
     <div class="membership-container" id="membershipContainer"></div>
 
-    <!-- TEMPLATE -->
     <template id="membershipTemplate">
-
         <div class="membership-card">
-
             <h3 class="planType"></h3>
-
             <p class="planDescription"></p>
-
             <p class="planBenefits"></p>
-
             <p class="membership-price planPrice"></p>
-
             <p class="planDuration"></p>
-
             <button class="buy-btn">Buy now</button>
-
         </div>
+    </template>
 
+    <div class="my-memberships" id="myMemberships" style="display:none;">
+        <div class="my-memberships-header">
+            <h2>My Memberships</h2>
+            <p>Your active membership tickets</p>
+        </div>
+        <div class="membership-list" id="membershipList"></div>
+    </div>
+
+    <template id="userMembershipTemplate">
+        <div class="user-membership-card">
+            <div class="umc-top">
+                <div class="umc-plan-name"></div>
+                <div class="umc-status"></div>
+            </div>
+            <div class="umc-dates"></div>
+            <div class="umc-actions">
+                <button class="umc-ticket-btn"><i class="fas fa-download"></i> Download Ticket</button>
+            </div>
+        </div>
     </template>
 
     <!-- BUY MODAL -->
     <div class="modal-overlay" id="modalOverlay"></div>
-
-    <div class="modal" id="buyModal">
-
-        <div class="modal-content">
-
-            <div class="modal-left">
-
-                <label>Start date:</label>
-                <input type="date" id="startDate">
-
-                <label>End date:</label>
-                <input type="date" id="endDate" disabled>
-
-            </div>
-
-            <div class="modal-right">
-
-                <h3 id="planType"></h3>
-
-                <p id="planDescription"></p>
-
-                <p id="planBenefits"></p>
-
-                <p id="planDuration"></p>
-
-                <p class="membership-price" id="planPrice"></p>
-
-                <div class="ticket-selector">
-
-                    <p>Select your number of tickets</p>
-
-                    <div class="ticket-controls">
-
-                        <button id="minusTicket">-</button>
-
-                        <span id="ticketCount">1</span>
-
-                        <button id="plusTicket">+</button>
-
-                    </div>
-
-                </div>
-
-                <p class="total-price">
-                    Total: <span id="totalPrice"></span>
-                </p>
-
-                <button id="confirmBuy" type="button">
-                    Buy now
-                </button>
-
-            </div>
-
+    <div class="modal-glass" id="buyModal">
+        <h2><i class="fas fa-id-card"></i> Purchase Membership</h2>
+        <div class="plan-summary">
+            <h3 id="planType"></h3>
+            <p id="planDescription"></p>
+            <p id="planBenefits" style="margin-top:8px;"></p>
         </div>
-
+        <div class="row">
+            <div>
+                <label>Start Date</label>
+                <input type="date" id="startDate">
+            </div>
+            <div>
+                <label>End Date</label>
+                <input type="date" id="endDate" disabled>
+            </div>
+        </div>
+        <div class="price-tag" id="planPrice"></div>
+        <button class="btn-primary" id="confirmBuy"><i class="fas fa-credit-card"></i> Continue to Payment</button>
+        <button class="btn-ghost" id="cancelBuy">Cancel</button>
     </div>
 
-    <!-- CARD MODAL  -->
+    <!-- CARD MODAL -->
     <div class="modal-overlay" id="cardOverlay"></div>
-
-    <div class="modal" id="cardModal">
-
-        <div class="modal-content">
-
-            <h2>Payment Information</h2>
-
-            <label>Card Number</label>
-            <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456">
-
-            <label>Card Holder</label>
-            <input type="text" id="cardHolder" placeholder="Name on card">
-
-            <button id="confirmCard">Confirm Payment</button>
-
-        </div>
-
+    <div class="modal-glass" id="cardModal" style="width:420px;">
+        <h2><i class="fas fa-lock"></i> Payment</h2>
+        <label>Card Number</label>
+        <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456">
+        <label>Card Holder</label>
+        <input type="text" id="cardHolder" placeholder="Name on card">
+        <button class="btn-primary" id="confirmCard"><i class="fas fa-check-circle"></i> Confirm Payment</button>
+        <button class="btn-ghost" id="cancelCard">Cancel</button>
     </div>
 
     <!-- ACCOUNT MODAL -->
     <div class="modal-overlay" id="accountModal">
-
         <div class="account-modal">
-
-            <h2>Account</h2>
-
-            <p><strong>Username:</strong></p>
-            <p id="modalUsername"></p>
-
-            <p><strong>Email:</strong></p>
-            <p id="modalEmail"></p>
-
-            <button id="logoutBtn">
-                Log out
-            </button>
-
+            <div class="account-header">
+                <div class="account-avatar"></div>
+                <div class="account-info">
+                    <h2>My Account</h2>
+                    <span>Lu Loo Land Member</span>
+                </div>
+            </div>
+            <div class="account-body">
+                <div class="account-item">
+                    <label>Username</label>
+                    <p id="modalUsername"></p>
+                </div>
+                <div class="account-item">
+                    <label>Email</label>
+                    <p id="modalEmail"></p>
+                </div>
+                <button id="logoutBtn">Log out</button>
+            </div>
         </div>
-
     </div>
 
     <br><br>
 
-    <!-- SCRIPTS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
+    <script src="js/navbar.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/memberships.js"></script>
 

@@ -42,13 +42,13 @@ datetime payment_date
 datetime created_at
 }
 MESSAGES {
-int id
-int user_id
+int id PK
+int user_id FK
 string message
-datetime timestamp
-boolean from_admin
+datetime timestamp "DEFAULT CURRENT_TIMESTAMP"
+boolean from_admin "0=user, 1=admin"
 string response
-string status
+string status "DEFAULT 'pending'"
 datetime answered_at
 }
 GAMES {
