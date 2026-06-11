@@ -1,31 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-    <title>Park Information</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messages</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="icon" href="images/logo.jpeg">
 </head>
-
 <body>
 
     <div id="navbar"></div>
 
-    <!-- TITLE -->
-        <h1 class="header">Lu Loo Land Information</h1>
+    <h1 class="header">Messages</h1>
 
-
-    <!-- CONTENT -->
-    <div class="container">
-        <div id="parkInfoContainer"></div>
+    <div class="section-container chat-container">
+        <div class="chat-box" id="chatBox"></div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="Type your message..." autocomplete="off">
+            <button id="sendBtn">Send</button>
+        </div>
     </div>
 
-    <!-- ACCOUNT MODAL -->
     <div class="modal-overlay" id="accountModal">
         <div class="account-modal">
-
             <div class="account-header">
                 <div class="account-avatar"></div>
                 <div class="account-info">
@@ -33,7 +30,6 @@
                     <span>Lu Loo Land Member</span>
                 </div>
             </div>
-
             <div class="account-body">
                 <div class="account-item">
                     <label>Username</label>
@@ -45,15 +41,12 @@
                 </div>
                 <button id="logoutBtn">Log out</button>
             </div>
-
         </div>
     </div>
 
-    <!-- SCRIPTS -->
+    <script src="/socket.io/socket.io.js"></script>
     <script src="js/navbar.js"></script>
     <script src="js/auth.js"></script>
-    <script src="js/parkInfo.js"></script>
-
+    <script src="js/messages.js"></script>
 </body>
-
 </html>

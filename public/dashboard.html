@@ -6,35 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lu Loo Land</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="images/logo.jpeg">
 </head>
 
 <body>
 
-    <!-- NAVBAR -->
-    <div class="top-menu">
-
-        <div class="menu-logo">
-            <img src="images/logo.jpeg" alt="logo">
-        </div>
-
-        <div class="menu-links">
-            <div class="menu-item" onclick="location.href='dashboard.html'">Home</div>
-            <div class="menu-item" onclick="checkAccess('memberships.html')">Membership</div>
-            <div class="menu-item" onclick="location.href='games.html'">Games</div>
-            <div class="menu-item" onclick="location.href='restaurants.html'">Restaurant</div>
-            <div class="menu-item" onclick="location.href='parkInfo.html'">Park Info</div>
-            <div class="menu-item" onclick="location.href='tickets.html'">Tickets</div>
-        </div>
-
-        <div class="menu-msg" onclick="checkAccess('messages.html')">
-            <img src="images/msspark.png" alt="messages">
-        </div>
-
-        <div class="menu-profile" id="accountButton">
-            <span id="userName">Log in</span>
-        </div>
-
-    </div>
+    <div id="navbar"></div>
 
     <!-- HERO NUEVO -->
     <section class="hero-home">
@@ -46,8 +23,8 @@
             <p>Where fantasy becomes reality</p>
 
             <div class="hero-buttons">
-                <button onclick="location.href='games.html'">Explore Attractions</button>
-                <button onclick="checkAccess('memberships.html')">Get Membership</button>
+                <button onclick="location.href='games'">Explore Attractions</button>
+                <button onclick="checkAccess('memberships')">Get Membership</button>
             </div>
         </div>
 
@@ -58,7 +35,7 @@
 
     <!-- EVENTS -->
     <div class="section-container">
-        <div class="sub"><a href="events.html">Recent events</a></div>
+        <div class="sub"><a href="events">Recent events</a></div>
 
         <div class="carousel">
             <div class="slides" id="eventsSlides"></div>
@@ -68,7 +45,7 @@
 
     <!-- GAMES -->
     <div class="section-container">
-        <p class="sub"><a href="games.html">Park attractions</a></p>
+        <p class="sub"><a href="games">Park attractions</a></p>
 
         <div class="carousel">
             <div class="slides" id="gamesSlides"></div>
@@ -78,7 +55,7 @@
 
     <!-- RESTAURANTS -->
     <div class="section-container">
-        <p class="sub"><a href="restaurants.html">Restaurants</a></p>
+        <p class="sub"><a href="restaurants">Restaurants</a></p>
 
         <div class="carousel">
             <div class="slides" id="restaurantsSlides"></div>
@@ -106,7 +83,7 @@
     <!-- ACCOUNT MODAL -->
     <div class="modal-overlay" id="accountModal">
 
-        </di<div class="account-modal">
+        <div class="account-modal">
 
         <div class="account-header">
 
@@ -141,6 +118,7 @@
 
     </div>
 
+    <script src="js/navbar.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/dashboard.js?v=3"></script>
     <script src="js/carousel.js?v=3"></script>

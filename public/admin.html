@@ -1,26 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
     <link rel="stylesheet" href="css/style.css">
-    <title>Admin Dashboard</title>
+    <link rel="icon" href="images/logo.jpeg">
 </head>
-
 <body>
 
-    <div class="header">Amusement Park</div>
-    <div class="sub" id="adminGreeting">Hello, Pretty-Admin muaakkkk</div>
+    <div id="navbar"></div>
 
-    <div class="container" id="adminContainer">
-        <div class="panel">
-            <h3>General Movements</h3>
+    <h1 class="header">Admin Panel</h1>
 
+    <div class="admin-layout">
+
+        <div class="admin-sidebar">
+            <div class="admin-sidebar-header">
+                <span class="admin-sidebar-title">Conversations</span>
+                <span class="admin-conv-count" id="convCount">0</span>
+            </div>
+            <div class="admin-conv-list" id="convList">
+                <p class="empty-msg">No conversations yet</p>
+            </div>
+        </div>
+
+        <div class="admin-chat-area">
+            <div class="admin-chat-header" id="chatHeader">
+                <span>Select a conversation</span>
+            </div>
+            <div class="admin-chat-box" id="adminChatBox">
+                <p class="empty-msg">Select a user to view their messages</p>
+            </div>
+            <div class="admin-chat-input-area" id="replyArea" style="display:none;">
+                <input type="text" id="replyInput" placeholder="Type your reply..." autocomplete="off">
+                <button id="replyBtn">Send</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="modal-overlay" id="accountModal">
+        <div class="account-modal">
+            <div class="account-header">
+                <div class="account-avatar"></div>
+                <div class="account-info">
+                    <h2>My Account</h2>
+                    <span>Lu Loo Land Member</span>
+                </div>
+            </div>
+            <div class="account-body">
+                <div class="account-item">
+                    <label>Username</label>
+                    <p id="modalUsername"></p>
+                </div>
+                <div class="account-item">
+                    <label>Email</label>
+                    <p id="modalEmail"></p>
+                </div>
+                <button id="logoutBtn">Log out</button>
+            </div>
         </div>
     </div>
 
-    <script src="js/main.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="js/admin-navbar.js"></script>
+    <script src="js/admin.js"></script>
 </body>
-
 </html>

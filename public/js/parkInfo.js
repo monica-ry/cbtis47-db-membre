@@ -34,9 +34,37 @@ async function loadParkInfo() {
     }
 }
 
-function renderParkInfo(park, container) {
+function createInfoRow(iconClass, label, value) {
+    const row = document.createElement("div");
+    row.className = "info-row";
 
-    console.log("RENDER START:", park);
+    const iconSpan = document.createElement("span");
+    iconSpan.className = "info-icon";
+
+    const icon = document.createElement("i");
+    icon.className = iconClass;
+    iconSpan.appendChild(icon);
+
+    const contentDiv = document.createElement("div");
+    contentDiv.className = "info-content";
+
+    const labelSpan = document.createElement("span");
+    labelSpan.className = "info-label";
+    labelSpan.textContent = label;
+
+    const valueSpan = document.createElement("span");
+    valueSpan.className = "info-value";
+    valueSpan.textContent = value || "-";
+
+    contentDiv.appendChild(labelSpan);
+    contentDiv.appendChild(valueSpan);
+    row.appendChild(iconSpan);
+    row.appendChild(contentDiv);
+
+    return row;
+}
+
+function renderParkInfo(park, container) {
 
     const card = document.createElement("div");
     card.className = "info-card";
@@ -47,35 +75,21 @@ function renderParkInfo(park, container) {
     const title = document.createElement("h3");
     title.textContent = park.park_name;
 
-    const location = document.createElement("p");
-    location.textContent = park.location;
-
-    const description = document.createElement("p");
-    description.textContent = park.description;
-
-    const hours = document.createElement("p");
-    hours.textContent = park.open_time + " - " + park.close_time;
-
-    const days = document.createElement("p");
-    days.textContent = park.open_days;
-
-    const phone = document.createElement("p");
-    phone.textContent = park.phone;
-
-    const email = document.createElement("p");
-    email.textContent = park.email;
-
-    const update = document.createElement("p");
-    update.textContent = "Updated: " + park.updated_at;
-
     textDiv.appendChild(title);
-    textDiv.appendChild(location);
-    textDiv.appendChild(description);
-    textDiv.appendChild(hours);
-    textDiv.appendChild(days);
-    textDiv.appendChild(phone);
-    textDiv.appendChild(email);
-    textDiv.appendChild(update);
+
+    const fields = [
+        ["fas fa-location-dot", "Address", park.location],
+        ["fas fa-align-left", "Description", park.description],
+        ["fas fa-clock", "Hours", `${park.open_time || "?"} - ${park.close_time || "?"}`],
+        ["fas fa-calendar-days", "Open Days", park.open_days],
+        ["fas fa-phone", "Phone", park.phone],
+        ["fas fa-envelope", "Email", park.email],
+        ["fas fa-rotate", "Last Updated", park.updated_at],
+    ];
+
+    fields.forEach(([icon, label, value], i) => {
+        textDiv.appendChild(createInfoRow(icon, label, value));
+    });
 
     card.appendChild(textDiv);
     container.appendChild(card);

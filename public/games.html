@@ -5,46 +5,12 @@
     <meta charset="UTF-8">
     <title>Park Attractions</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="images/logo.jpeg">
 </head>
 
 <body>
 
-    <!-- TOP MENU -->
-    <div class="top-menu">
-
-        <div class="menu-logo">
-            <img src="images/logo.jpeg" alt="logo">
-        </div>
-
-        <div class="menu-links">
-
-            <div class="menu-item" onclick="checkAccess('memberships.html')">
-                Membership
-            </div>
-
-            <div class="menu-item" onclick="location.href='games.html'">
-                Games
-            </div>
-
-            <div class="menu-item" onclick="location.href='restaurants.html'">
-                Restaurant
-            </div>
-
-            <div class="menu-item" onclick="location.href='parkInfo.html'">
-                Park information
-            </div>
-
-        </div>
-
-        <div class="menu-msg" onclick="checkAccess('messages.html')">
-            <img src="images/msspark.png" alt="messages">
-        </div>
-
-        <div class="menu-profile" id="accountButton">
-            <span id="userName">Log in</span>
-        </div>
-
-    </div>
+    <div id="navbar"></div>
 
     <!-- TITLE -->
     <h1 class="header">Park Attractions</h1>
@@ -65,26 +31,33 @@
 
     <!-- ACCOUNT MODAL -->
     <div class="modal-overlay" id="accountModal">
-
         <div class="account-modal">
 
-            <h2>Account</h2>
+            <div class="account-header">
+                <div class="account-avatar"></div>
+                <div class="account-info">
+                    <h2>My Account</h2>
+                    <span>Lu Loo Land Member</span>
+                </div>
+            </div>
 
-            <p><strong>Username:</strong></p>
-            <p id="modalUsername"></p>
-
-            <p><strong>Email:</strong></p>
-            <p id="modalEmail"></p>
-
-            <button id="logoutBtn">
-                Log out
-            </button>
+            <div class="account-body">
+                <div class="account-item">
+                    <label>Username</label>
+                    <p id="modalUsername"></p>
+                </div>
+                <div class="account-item">
+                    <label>Email</label>
+                    <p id="modalEmail"></p>
+                </div>
+                <button id="logoutBtn">Log out</button>
+            </div>
 
         </div>
-
     </div>
 
     <!-- SCRIPTS -->
+    <script src="js/navbar.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/games.js" defer></script>
 

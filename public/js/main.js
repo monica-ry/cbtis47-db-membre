@@ -108,7 +108,7 @@ async function loginUser() {
         localStorage.removeItem("redirectAfterLogin");
         window.location.href = redirect;
     } else {
-        window.location.href = "dashboard.html";
+        window.location.href = "dashboard";
     }
 }
 
@@ -149,7 +149,7 @@ async function loginAdmin() {
     }
 
     localStorage.setItem("loggedUser", JSON.stringify(data.user));
-    window.location.href = "admin.html";
+    window.location.href = "admin";
 }
 
 
@@ -204,7 +204,7 @@ async function registerUser() {
         // EXITO
         alert("Account created successfully!");
 
-        window.location.href = "index.html";
+        window.location.href = "/";
 
     } catch (error) {
 

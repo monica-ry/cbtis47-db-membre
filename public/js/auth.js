@@ -19,7 +19,7 @@ document.addEventListener("DOMContentLoaded", () => {
         userName.textContent = "Log in";
 
         accountButton.addEventListener("click", () => {
-            window.location.href = "index.html";
+            window.location.href = "/";
         });
 
     }
@@ -54,7 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         localStorage.removeItem("loggedUser");
 
-        window.location.href = "index.html";
+        window.location.href = "/";
 
     });
 
@@ -71,7 +71,7 @@ function checkAccess(page) {
 
         alert("You need to log in first");
 
-        window.location.href = "index.html";
+        window.location.href = "/";
 
         return;
     }

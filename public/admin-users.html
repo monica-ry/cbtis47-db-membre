@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Users</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="images/logo.jpeg">
+    <style>
+        .admin-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .admin-table th, .admin-table td { padding: 12px 14px; border: 1px solid var(--border); text-align: left; color: var(--text); }
+        .admin-table th { background: rgba(255,79,135,0.15); color: var(--primary); font-weight: 600; }
+        .admin-table td { background: rgba(255,255,255,0.03); }
+        .admin-table tr:hover td { background: rgba(255,255,255,0.06); }
+        .admin-role { padding: 3px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+        .admin-role.admin { background: rgba(255,79,135,0.2); color: var(--primary); }
+        .admin-role.user { background: rgba(87,255,152,0.15); color: var(--success); }
+    </style>
+</head>
+<body>
+
+    <div id="navbar"></div>
+
+    <h1 class="header">Registered Users</h1>
+
+    <div class="section-container">
+        <h2 style="color:var(--primary);padding:0;font-size:1.5rem;margin-bottom:10px;">All Users</h2>
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Role</th>
+                    <th>Registered</th>
+                </tr>
+            </thead>
+            <tbody id="usersTableBody"></tbody>
+        </table>
+    </div>
+
+    <div class="modal-overlay" id="accountModal">
+        <div class="account-modal">
+            <div class="account-header">
+                <div class="account-avatar"></div>
+                <div class="account-info">
+                    <h2>Admin Account</h2>
+                    <span>Lu Loo Land Administrator</span>
+                </div>
+            </div>
+            <div class="account-body">
+                <div class="account-item">
+                    <label>Username</label>
+                    <p id="modalUsername"></p>
+                </div>
+                <div class="account-item">
+                    <label>Email</label>
+                    <p id="modalEmail"></p>
+                </div>
+                <button id="logoutBtn">Log out</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/admin-navbar.js"></script>
+    <script src="js/admin-users.js"></script>
+</body>
+</html>

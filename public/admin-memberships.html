@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Memberships</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" href="images/logo.jpeg">
+    <style>
+        .admin-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        .admin-table th, .admin-table td { padding: 12px 14px; border: 1px solid var(--border); text-align: left; color: var(--text); }
+        .admin-table th { background: rgba(255,79,135,0.15); color: var(--primary); font-weight: 600; }
+        .admin-table td { background: rgba(255,255,255,0.03); }
+        .admin-table tr:hover td { background: rgba(255,255,255,0.06); }
+        .btn-sm { padding: 6px 14px; font-size: 0.8rem; margin: 2px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; transition: 0.3s; }
+        .btn-edit { background: var(--accent); color: #333; }
+        .btn-del { background: #e74c3c; color: white; }
+        .btn-edit:hover, .btn-del:hover { transform: translateY(-1px); filter: brightness(1.1); }
+        .btn-add { background: linear-gradient(45deg, var(--primary), #ff7aa2); color: white; padding: 10px 20px; border: none; border-radius: 10px; cursor: pointer; font-weight: 700; transition: 0.3s; }
+        .btn-add:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255,79,135,0.4); }
+        .admin-form { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .admin-form label { color: rgba(255,255,255,0.6); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+        .admin-form input, .admin-form textarea { width: 100%; padding: 10px; background: rgba(255,255,255,0.06); border: 1px solid var(--border); border-radius: 10px; color: var(--text); outline: none; box-sizing: border-box; }
+        .admin-form input:focus, .admin-form textarea:focus { border-color: var(--primary); }
+        .admin-form textarea { resize: vertical; min-height: 60px; }
+        .admin-form .full { grid-column: span 2; }
+        .admin-toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+        .toast { position: fixed; bottom: 30px; right: 30px; padding: 14px 24px; border-radius: 12px; color: white; font-weight: 600; z-index: 9999; animation: msgIn 0.3s ease; }
+        .toast.success { background: #27ae60; }
+        .toast.error { background: #e74c3c; }
+        @keyframes msgIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div id="navbar"></div>
+
+    <h1 class="header">Manage Memberships</h1>
+
+    <div class="section-container">
+        <div class="admin-toolbar">
+            <h2 style="color:var(--primary);padding:0;font-size:1.5rem;">All Plans</h2>
+            <button class="btn-add" onclick="openAddModal()">+ Add Plan</button>
+        </div>
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Duration</th>
+                    <th>Description</th>
+                    <th>Benefits</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="membershipsTableBody"></tbody>
+        </table>
+    </div>
+
+    <div class="modal-overlay" id="membershipModalOverlay" style="display:none;" onclick="closeMembershipModal()"></div>
+    <div class="modal" id="membershipModal" style="display:none;width:600px;">
+        <div class="admin-form">
+            <input type="hidden" id="membershipId">
+            <div class="full">
+                <label>Plan Name</label>
+                <input type="text" id="membershipName" placeholder="Plan name">
+            </div>
+            <div>
+                <label>Price</label>
+                <input type="number" step="0.01" id="membershipPrice" placeholder="0.00">
+            </div>
+            <div>
+                <label>Duration</label>
+                <input type="text" id="membershipDuration" placeholder="e.g. 1 month, 1 year">
+            </div>
+            <div class="full">
+                <label>Description</label>
+                <textarea id="membershipDesc" placeholder="Plan description"></textarea>
+            </div>
+            <div class="full">
+                <label>Benefits</label>
+                <textarea id="membershipBenefits" placeholder="Benefits (one per line)"></textarea>
+            </div>
+            <div class="full" style="display:flex;gap:10px;justify-content:flex-end;">
+                <button onclick="closeMembershipModal()" style="background:rgba(255,255,255,0.1);color:white;padding:10px 20px;border:none;border-radius:8px;cursor:pointer;">Cancel</button>
+                <button onclick="saveMembership()" style="background:linear-gradient(45deg,var(--primary),#ff7aa2);color:white;padding:10px 20px;border:none;border-radius:8px;cursor:pointer;font-weight:700;">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="accountModal">
+        <div class="account-modal">
+            <div class="account-header">
+                <div class="account-avatar"></div>
+                <div class="account-info">
+                    <h2>Admin Account</h2>
+                    <span>Lu Loo Land Administrator</span>
+                </div>
+            </div>
+            <div class="account-body">
+                <div class="account-item">
+                    <label>Username</label>
+                    <p id="modalUsername"></p>
+                </div>
+                <div class="account-item">
+                    <label>Email</label>
+                    <p id="modalEmail"></p>
+                </div>
+                <button id="logoutBtn">Log out</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/admin-navbar.js"></script>
+    <script src="js/admin-memberships.js"></script>
+</body>
+</html>

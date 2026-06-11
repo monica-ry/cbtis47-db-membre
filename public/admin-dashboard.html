@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="images/logo.jpeg">
+</head>
+<body>
+
+    <div id="navbar"></div>
+
+    <h1 class="header">Admin Dashboard</h1>
+
+    <div class="section-container">
+        <div class="admin-stats" id="statsContainer">
+            <div class="admin-stat-card">
+                <div class="stat-icon"><i class="fas fa-ticket"></i></div>
+                <div class="stat-label">Games</div>
+                <div class="stat-value" id="statGames">-</div>
+            </div>
+            <div class="admin-stat-card">
+                <div class="stat-icon"><i class="fas fa-utensils"></i></div>
+                <div class="stat-label">Restaurants</div>
+                <div class="stat-value" id="statRestaurants">-</div>
+            </div>
+            <div class="admin-stat-card">
+                <div class="stat-icon"><i class="fas fa-users"></i></div>
+                <div class="stat-label">Users</div>
+                <div class="stat-value" id="statUsers">-</div>
+            </div>
+            <div class="admin-stat-card">
+                <div class="stat-icon"><i class="fas fa-id-card"></i></div>
+                <div class="stat-label">Memberships</div>
+                <div class="stat-value" id="statMemberships">-</div>
+            </div>
+            <div class="admin-stat-card">
+                <div class="stat-icon"><i class="fas fa-comments"></i></div>
+                <div class="stat-label">Messages</div>
+                <div class="stat-value" id="statMessages">-</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-container">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;">
+            <div class="membership-card" style="cursor:pointer;" onclick="location.href='/admin-games'">
+                <h3><i class="fas fa-ticket"></i> Games</h3>
+                <p>Add, edit or remove games from the park catalogue</p>
+            </div>
+            <div class="membership-card" style="cursor:pointer;" onclick="location.href='/admin-restaurants'">
+                <h3><i class="fas fa-utensils"></i> Restaurants</h3>
+                <p>Add, edit or remove restaurants from the park</p>
+            </div>
+            <div class="membership-card" style="cursor:pointer;" onclick="location.href='/admin-users'">
+                <h3><i class="fas fa-users"></i> Users</h3>
+                <p>View all registered users</p>
+            </div>
+            <div class="membership-card" style="cursor:pointer;" onclick="location.href='/admin-parkinfo'">
+                <h3><i class="fas fa-info-circle"></i> Park Info</h3>
+                <p>Edit park information</p>
+            </div>
+            <div class="membership-card" style="cursor:pointer;" onclick="location.href='/admin-memberships'">
+                <h3><i class="fas fa-id-card"></i> Memberships</h3>
+                <p>Manage membership plans</p>
+            </div>
+            <div class="membership-card" style="cursor:pointer;" onclick="location.href='/admin'">
+                <h3><i class="fas fa-comments"></i> Messages</h3>
+                <p>View and reply to user messages</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="accountModal">
+        <div class="account-modal">
+            <div class="account-header">
+                <div class="account-avatar"></div>
+                <div class="account-info">
+                    <h2>Admin Account</h2>
+                    <span>Lu Loo Land Administrator</span>
+                </div>
+            </div>
+            <div class="account-body">
+                <div class="account-item">
+                    <label>Username</label>
+                    <p id="modalUsername"></p>
+                </div>
+                <div class="account-item">
+                    <label>Email</label>
+                    <p id="modalEmail"></p>
+                </div>
+                <button id="logoutBtn">Log out</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/admin-navbar.js"></script>
+    <script src="js/admin-dashboard.js"></script>
+</body>
+</html>

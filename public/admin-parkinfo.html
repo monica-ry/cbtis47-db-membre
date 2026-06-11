@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Park Info</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="icon" href="images/logo.jpeg">
+    <style>
+        .park-form { max-width: 600px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
+        .park-form label { color: rgba(255,255,255,0.6); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+        .park-form input, .park-form textarea { width: 100%; padding: 12px; background: rgba(255,255,255,0.06); border: 1px solid var(--border); border-radius: 10px; color: var(--text); outline: none; box-sizing: border-box; }
+        .park-form input:focus, .park-form textarea:focus { border-color: var(--primary); }
+        .park-form textarea { resize: vertical; min-height: 80px; }
+        .save-btn { width: 100%; padding: 14px; background: linear-gradient(45deg, var(--primary), #ff7aa2); border: none; border-radius: 12px; color: white; font-weight: 700; font-size: 1rem; cursor: pointer; transition: 0.3s; }
+        .save-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(255,79,135,0.4); }
+        .toast { position: fixed; bottom: 30px; right: 30px; padding: 14px 24px; border-radius: 12px; color: white; font-weight: 600; z-index: 9999; animation: msgIn 0.3s ease; }
+        .toast.success { background: #27ae60; }
+        .toast.error { background: #e74c3c; }
+        @keyframes msgIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
+
+    <div id="navbar"></div>
+
+    <h1 class="header">Edit Park Info</h1>
+
+    <div class="section-container">
+        <div class="park-form">
+            <label>Park Name</label>
+            <input type="text" id="parkName" placeholder="Park name">
+
+            <label>Location</label>
+            <input type="text" id="parkLocation" placeholder="Address">
+
+            <label>Description</label>
+            <textarea id="parkDescription" placeholder="Park description"></textarea>
+
+            <label>Open Time</label>
+            <input type="text" id="parkOpen" placeholder="e.g. 09:00 AM">
+
+            <label>Close Time</label>
+            <input type="text" id="parkClose" placeholder="e.g. 08:00 PM">
+
+            <label>Open Days</label>
+            <input type="text" id="parkDays" placeholder="e.g. Monday - Sunday">
+
+            <label>Phone</label>
+            <input type="text" id="parkPhone" placeholder="Phone number">
+
+            <label>Email</label>
+            <input type="email" id="parkEmail" placeholder="Email">
+
+            <button class="save-btn" onclick="saveParkInfo()">Save Changes</button>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="accountModal">
+        <div class="account-modal">
+            <div class="account-header">
+                <div class="account-avatar"></div>
+                <div class="account-info">
+                    <h2>Admin Account</h2>
+                    <span>Lu Loo Land Administrator</span>
+                </div>
+            </div>
+            <div class="account-body">
+                <div class="account-item">
+                    <label>Username</label>
+                    <p id="modalUsername"></p>
+                </div>
+                <div class="account-item">
+                    <label>Email</label>
+                    <p id="modalEmail"></p>
+                </div>
+                <button id="logoutBtn">Log out</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/admin-navbar.js"></script>
+    <script src="js/admin-parkinfo.js"></script>
+</body>
+</html>
