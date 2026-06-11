@@ -87,6 +87,9 @@ async function loadInfo() {
     const res = await fetch("/park-info");
     const data = await res.json();
 
-    console.log(data);
+    const locationEl = document.getElementById("parkLocation");
+    if (locationEl && data.length > 0) {
+        locationEl.textContent = data[0].location;
+    }
 
 }

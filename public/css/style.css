@@ -1235,6 +1235,12 @@ table td {
     border-radius:15px;
     font-size:1.2rem;
 }
+
+.location-address {
+    font-size: 1.1rem;
+    color: var(--text-soft);
+    text-align: center;
+}
 .notification-box{
     position:fixed;
     bottom:20px;
