@@ -72,8 +72,13 @@
                 <textarea id="gameDesc" placeholder="Game description"></textarea>
             </div>
             <div>
-                <label>Image URL</label>
-                <input type="text" id="gameImage" placeholder="images/game.jpg">
+                <label>Image</label>
+                <div class="file-input-wrapper">
+                    <label class="file-input-btn" for="gameImage"><i class="fas fa-upload"></i> Choose File</label>
+                    <span class="file-input-name" id="gameImageName">No file selected</span>
+                </div>
+                <input type="file" id="gameImage" accept="image/*">
+                <div id="gameImagePreview" style="margin-top:6px;font-size:0.8rem;color:var(--text-soft);"></div>
             </div>
             <div>
                 <label>Status</label>
@@ -112,6 +117,11 @@
         </div>
     </div>
 
+    <script>
+        document.getElementById('gameImage').addEventListener('change', function() {
+            document.getElementById('gameImageName').textContent = this.files[0] ? this.files[0].name : 'No file selected';
+        });
+    </script>
     <script src="js/admin-navbar.js"></script>
     <script src="js/admin-games.js"></script>
 </body>

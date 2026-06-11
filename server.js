@@ -6,7 +6,14 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const http = require('http');
 const bcrypt = require('bcrypt');
+const multer = require('multer');
 const { Server } = require('socket.io');
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => cb(null, path.join(__dirname, 'public', 'images')),
+    filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname.replace(/[^a-zA-Z0-9._-]/g, ''))
+});
+const upload = multer({ storage });
 
 const app = express();
 
@@ -371,6 +378,14 @@ app.get("/park-info", (req, res) => {
 });
 
 // ----------------------
+// IMAGE UPLOAD
+// ----------------------
+app.post("/api/upload", upload.single("image"), (req, res) => {
+    if (!req.file) return res.status(400).json({ success: false, error: "No file uploaded" });
+    res.json({ success: true, filename: req.file.filename });
+});
+
+// ----------------------
 // API ADMIN ENDPOINTS
 // ----------------------
 
@@ -587,7 +602,7 @@ io.on("connection", (socket) => {
             const userId = (users && users.length > 0) ? users[0].id : null;
             const insert = "INSERT INTO messages (user_id, message, from_admin, status) VALUES (?, ?, 1, 'answered')";
             db.query(insert, [userId, data.text], (err2, result) => {
-                const msg = {
+                const userMsg = {
                     id: result ? result.insertId : Date.now(),
                     username: "Admin",
                     text: data.text,
@@ -595,8 +610,16 @@ io.on("connection", (socket) => {
                     type: "admin",
                     toUser: data.toUser,
                 };
-                io.to(data.toUser).emit("admin_reply", msg);
-                io.to("admin").emit("new_message", msg);
+                io.to(data.toUser).emit("admin_reply", userMsg);
+
+                const adminMsg = {
+                    id: userMsg.id,
+                    username: data.toUser,
+                    text: data.text,
+                    time: userMsg.time,
+                    type: "admin",
+                };
+                io.to("admin").emit("new_message", adminMsg);
             });
         });
     });

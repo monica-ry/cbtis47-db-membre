@@ -1,4 +1,5 @@
 let editingRestaurantId = null;
+let currentImage = "";
 
 async function loadRestaurants() {
     const res = await fetch("/api/restaurants");
@@ -7,7 +8,7 @@ async function loadRestaurants() {
     tbody.innerHTML = items.map(r => `
         <tr>
             <td>${r.id}</td>
-            <td>${r.image ? `<img src="${esc(r.image)}" alt="">` : '-'}</td>
+            <td>${r.image ? `<img src="/images/${esc(r.image)}" alt="">` : '-'}</td>
             <td>${esc(r.name)}</td>
             <td>${esc(r.type || '')}</td>
             <td>${esc(r.description || '')}</td>
@@ -21,11 +22,13 @@ async function loadRestaurants() {
 
 function openAddModal() {
     editingRestaurantId = null;
+    currentImage = "";
     document.getElementById("restaurantId").value = "";
     document.getElementById("restaurantName").value = "";
     document.getElementById("restaurantType").value = "";
     document.getElementById("restaurantDesc").value = "";
     document.getElementById("restaurantImage").value = "";
+    document.getElementById("restaurantImagePreview").textContent = "";
     document.getElementById("restaurantModal").style.display = "block";
     document.getElementById("restaurantModalOverlay").style.display = "block";
 }
@@ -36,11 +39,13 @@ async function openEditModal(id) {
     const item = items.find(r => r.id === id);
     if (!item) return;
     editingRestaurantId = id;
+    currentImage = item.image || "";
     document.getElementById("restaurantId").value = item.id;
     document.getElementById("restaurantName").value = item.name;
     document.getElementById("restaurantType").value = item.type || "";
     document.getElementById("restaurantDesc").value = item.description || "";
-    document.getElementById("restaurantImage").value = item.image || "";
+    document.getElementById("restaurantImage").value = "";
+    document.getElementById("restaurantImagePreview").textContent = currentImage ? "Current: " + currentImage : "";
     document.getElementById("restaurantModal").style.display = "block";
     document.getElementById("restaurantModalOverlay").style.display = "block";
 }
@@ -54,8 +59,18 @@ async function saveRestaurant() {
     const name = document.getElementById("restaurantName").value.trim();
     const type = document.getElementById("restaurantType").value.trim();
     const description = document.getElementById("restaurantDesc").value.trim();
-    const image = document.getElementById("restaurantImage").value.trim();
     if (!name) { showToast("Name is required", "error"); return; }
+
+    let image = currentImage;
+    const fileInput = document.getElementById("restaurantImage");
+    if (fileInput.files && fileInput.files[0]) {
+        const fd = new FormData();
+        fd.append("image", fileInput.files[0]);
+        const up = await fetch("/api/upload", { method: "POST", body: fd });
+        const upData = await up.json();
+        if (!upData.success) { showToast("Upload failed", "error"); return; }
+        image = upData.filename;
+    }
 
     const url = editingRestaurantId ? `/api/admin/restaurants/${editingRestaurantId}` : "/api/admin/restaurants";
     const method = editingRestaurantId ? "PUT" : "POST";

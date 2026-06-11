@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 const start = new Date(event.start_date).toLocaleDateString();
                 const end = new Date(event.end_date).toLocaleDateString();
 
-                clone.querySelector(".game-img").src = "images/" + event.image;
+                clone.querySelector(".game-img").src = "/images/" + event.image;
                 clone.querySelector(".game-name").textContent = event.name;
                 clone.querySelector(".game-desc").textContent = event.description;
                 clone.querySelector(".game-date").textContent =

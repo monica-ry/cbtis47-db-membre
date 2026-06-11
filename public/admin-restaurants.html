@@ -71,8 +71,13 @@
                 <input type="text" id="restaurantType" placeholder="e.g. Fast Food, Italian">
             </div>
             <div>
-                <label>Image URL</label>
-                <input type="text" id="restaurantImage" placeholder="images/restaurant.jpg">
+                <label>Image</label>
+                <div class="file-input-wrapper">
+                    <label class="file-input-btn" for="restaurantImage"><i class="fas fa-upload"></i> Choose File</label>
+                    <span class="file-input-name" id="restaurantImageName">No file selected</span>
+                </div>
+                <input type="file" id="restaurantImage" accept="image/*">
+                <div id="restaurantImagePreview" style="margin-top:6px;font-size:0.8rem;color:var(--text-soft);"></div>
             </div>
             <div class="full">
                 <label>Description</label>
@@ -108,6 +113,11 @@
         </div>
     </div>
 
+    <script>
+        document.getElementById('restaurantImage').addEventListener('change', function() {
+            document.getElementById('restaurantImageName').textContent = this.files[0] ? this.files[0].name : 'No file selected';
+        });
+    </script>
     <script src="js/admin-navbar.js"></script>
     <script src="js/admin-restaurants.js"></script>
 </body>

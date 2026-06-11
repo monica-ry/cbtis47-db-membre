@@ -1,4 +1,5 @@
 let editingGameId = null;
+let currentImage = "";
 
 async function loadGames() {
     const res = await fetch("/api/games");
@@ -7,7 +8,7 @@ async function loadGames() {
     tbody.innerHTML = games.map(g => `
         <tr>
             <td>${g.id}</td>
-            <td>${g.image ? `<img src="${esc(g.image)}" alt="">` : '-'}</td>
+            <td>${g.image ? `<img src="/images/${esc(g.image)}" alt="">` : '-'}</td>
             <td>${esc(g.name)}</td>
             <td>${esc(g.description || '')}</td>
             <td>${g.status}</td>
@@ -21,10 +22,12 @@ async function loadGames() {
 
 function openAddModal() {
     editingGameId = null;
+    currentImage = "";
     document.getElementById("gameId").value = "";
     document.getElementById("gameName").value = "";
     document.getElementById("gameDesc").value = "";
     document.getElementById("gameImage").value = "";
+    document.getElementById("gameImagePreview").textContent = "";
     document.getElementById("gameStatus").value = "active";
     document.getElementById("gameModal").style.display = "block";
     document.getElementById("gameModalOverlay").style.display = "block";
@@ -36,10 +39,12 @@ async function openEditModal(id) {
     const game = games.find(g => g.id === id);
     if (!game) return;
     editingGameId = id;
+    currentImage = game.image || "";
     document.getElementById("gameId").value = game.id;
     document.getElementById("gameName").value = game.name;
     document.getElementById("gameDesc").value = game.description || "";
-    document.getElementById("gameImage").value = game.image || "";
+    document.getElementById("gameImage").value = "";
+    document.getElementById("gameImagePreview").textContent = currentImage ? "Current: " + currentImage : "";
     document.getElementById("gameStatus").value = game.status || "active";
     document.getElementById("gameModal").style.display = "block";
     document.getElementById("gameModalOverlay").style.display = "block";
@@ -53,9 +58,19 @@ function closeGameModal() {
 async function saveGame() {
     const name = document.getElementById("gameName").value.trim();
     const description = document.getElementById("gameDesc").value.trim();
-    const image = document.getElementById("gameImage").value.trim();
     const status = document.getElementById("gameStatus").value;
     if (!name) { showToast("Name is required", "error"); return; }
+
+    let image = currentImage;
+    const fileInput = document.getElementById("gameImage");
+    if (fileInput.files && fileInput.files[0]) {
+        const fd = new FormData();
+        fd.append("image", fileInput.files[0]);
+        const up = await fetch("/api/upload", { method: "POST", body: fd });
+        const upData = await up.json();
+        if (!upData.success) { showToast("Upload failed", "error"); return; }
+        image = upData.filename;
+    }
 
     const url = editingGameId ? `/api/admin/games/${editingGameId}` : "/api/admin/games";
     const method = editingGameId ? "PUT" : "POST";
