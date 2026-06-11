@@ -1,3 +1,5 @@
+console.log("MEMBERSHIPS JS LOADED")
+
 let selectedPlan = null
 let ticketCountValue = 1
 
@@ -5,11 +7,29 @@ document.addEventListener("DOMContentLoaded", () => {
 
     loadMemberships()
 
-    const overlay = document.getElementById("modalOverlay")
-    overlay.addEventListener("click", closeModal)
+    document.getElementById("modalOverlay")
+        .addEventListener("click", closeModal)
+
+    document.getElementById("cardOverlay")
+        .addEventListener("click", closeCardModal)
+
+    // 💳 SOLO NÚMEROS + FORMATO TARJETA
+    const cardInput = document.getElementById("cardNumber")
+
+    if (cardInput) {
+        cardInput.addEventListener("input", (e) => {
+
+            let value = e.target.value
+
+            value = value.replace(/\D/g, "")
+            value = value.substring(0, 16)
+            value = value.replace(/(\d{4})/g, "$1 ").trim()
+
+            e.target.value = value
+        })
+    }
 
 })
-
 
 async function loadMemberships() {
 
@@ -33,35 +53,23 @@ async function loadMemberships() {
 
             const clone = template.content.cloneNode(true)
 
-            clone.querySelector(".planType").textContent = plan.plan_type
-
+            clone.querySelector(".planType").textContent = plan.name
             clone.querySelector(".planDescription").textContent = plan.description
+            clone.querySelector(".planBenefits").textContent = "Benefits: " + plan.benefits
+            clone.querySelector(".planPrice").textContent = "$" + Number(plan.price).toFixed(2)
+            clone.querySelector(".planDuration").textContent = "Duration: " + plan.duration + " days"
 
-            clone.querySelector(".planPrice").textContent =
-                "$" + Number(plan.price).toFixed(2)
-
-            clone.querySelector(".planDuration").textContent =
-                "Duración: " + plan.duration_days + " días"
-
-            const btn = clone.querySelector(".buy-btn")
-
-            btn.addEventListener("click", () => {
+            clone.querySelector(".buy-btn").addEventListener("click", () => {
                 openBuyModal(plan)
             })
 
             container.appendChild(clone)
-
         })
 
-    }
-    catch (error) {
-
+    } catch (error) {
         console.error("Fetch error:", error)
-
     }
-
 }
-
 
 function openBuyModal(plan) {
 
@@ -71,177 +79,185 @@ function openBuyModal(plan) {
     const modal = document.getElementById("buyModal")
     const overlay = document.getElementById("modalOverlay")
 
-    document.getElementById("planType").textContent = plan.plan_type
-
+    document.getElementById("planType").textContent = plan.name
     document.getElementById("planDescription").textContent = plan.description
-
-    document.getElementById("planDuration").textContent =
-        "Duración: " + plan.duration_days + " días"
-
-    document.getElementById("planPrice").textContent =
-        "$" + Number(plan.price).toFixed(2)
-
+    document.getElementById("planBenefits").textContent = "Benefits: " + plan.benefits
+    document.getElementById("planDuration").textContent = "Duration: " + plan.duration + " days"
+    document.getElementById("planPrice").textContent = "$" + Number(plan.price).toFixed(2)
 
     const startInput = document.getElementById("startDate")
     const endInput = document.getElementById("endDate")
 
+    const today = new Date().toISOString().split("T")[0]
 
-    const today = new Date()
-    const todayString = today.toISOString().split("T")[0]
+    startInput.min = today
+    startInput.value = today
 
-    startInput.min = todayString
-    startInput.value = todayString
+    updateEndDate(plan.duration)
+    startInput.onchange = () => updateEndDate(plan.duration)
 
-
-    updateEndDate(plan.duration_days)
-
-
-    startInput.onchange = () => {
-        updateEndDate(plan.duration_days)
-    }
-
-
-    const minusBtn = document.getElementById("minusTicket")
-    const plusBtn = document.getElementById("plusTicket")
-    const ticketCount = document.getElementById("ticketCount")
-    const totalPrice = document.getElementById("totalPrice")
-
-
-    ticketCount.textContent = 1
-
+    document.getElementById("ticketCount").textContent = 1
 
     function updateTotal() {
-
         const total = plan.price * ticketCountValue
-        totalPrice.textContent = "$" + total.toFixed(2)
-
+        document.getElementById("totalPrice").textContent = "$" + total.toFixed(2)
     }
 
     updateTotal()
 
-
-    plusBtn.onclick = () => {
-
+    document.getElementById("plusTicket").onclick = () => {
         ticketCountValue++
-
-        ticketCount.textContent = ticketCountValue
-
+        document.getElementById("ticketCount").textContent = ticketCountValue
         updateTotal()
-
     }
 
-
-    minusBtn.onclick = () => {
-
+    document.getElementById("minusTicket").onclick = () => {
         if (ticketCountValue > 1) {
-
             ticketCountValue--
-
-            ticketCount.textContent = ticketCountValue
-
+            document.getElementById("ticketCount").textContent = ticketCountValue
             updateTotal()
-
         }
-
     }
-    document.getElementById("confirmBuy").onclick = buyMembership
 
+    document.getElementById("confirmBuy").onclick = openCardModal
 
     modal.style.display = "block"
     overlay.style.display = "block"
-
 }
-
 
 function updateEndDate(duration) {
 
-    const startInput = document.getElementById("startDate")
-    const endInput = document.getElementById("endDate")
-
-    const start = new Date(startInput.value)
-
+    const start = new Date(document.getElementById("startDate").value)
     const end = new Date(start)
 
     end.setDate(end.getDate() + duration)
 
-    endInput.valueAsDate = end
-
+    document.getElementById("endDate").valueAsDate = end
 }
-
 
 function closeModal() {
-
     document.getElementById("buyModal").style.display = "none"
-
     document.getElementById("modalOverlay").style.display = "none"
-
 }
-async function buyMembership() {
-    if (!selectedPlan) return;
 
-    const startDate = document.getElementById("startDate").value;
-    const endDate = document.getElementById("endDate").value;
+function openCardModal() {
+
+    document.getElementById("cardModal").style.display = "block"
+    document.getElementById("cardOverlay").style.display = "block"
+
+    document.getElementById("confirmCard").onclick = validateCard
+}
+
+function closeCardModal() {
+    document.getElementById("cardModal").style.display = "none"
+    document.getElementById("cardOverlay").style.display = "none"
+}
+
+function validateCard() {
+
+    const number = document.getElementById("cardNumber").value.replace(/\s/g, "")
+    const holder = document.getElementById("cardHolder").value
+
+    if (!number || !holder) {
+        alert("Please fill all fields")
+        return
+    }
+
+    if (number.length !== 16) {
+        alert("Card number must be 16 digits")
+        return
+    }
+
+    closeCardModal()
+    buyMembership()
+}
+
+async function buyMembership() {
+
+    if (!selectedPlan) return
+
+    const startDate = document.getElementById("startDate").value
+    const endDate = document.getElementById("endDate").value
 
     try {
+
         const response = await fetch("/purchase", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 user_id: 1,
-                plan_id: selectedPlan.id_affiliation,
+                plan_id: selectedPlan.id,
                 start_date: startDate,
                 end_date: endDate,
                 quantity: ticketCountValue
             })
-        });
+        })
 
-        const data = await response.json();
-        if (!data.success) return alert("Error al realizar la compra");
+        const data = await response.json()
 
-        // ---------- PDF con jsPDF y QR ----------
-        const doc = new window.jspdf.jsPDF();
+        if (!data.success) {
+            return alert("Error purchasing membership")
+        }
 
-        doc.setFontSize(18);
-        doc.text("Ticket de Membresía", 20, 20);
+        const doc = new window.jspdf.jsPDF()
 
-        doc.setFontSize(12);
-        doc.text(`Plan: ${selectedPlan.plan_type}`, 20, 40);
-        doc.text(`Descripción: ${selectedPlan.description}`, 20, 50);
-        doc.text(`Duración: ${selectedPlan.duration_days} días`, 20, 60);
-        doc.text(`Cantidad de entradas: ${ticketCountValue}`, 20, 70);
-        doc.text(`Fecha de inicio: ${startDate}`, 20, 80);
-        doc.text(`Fecha de fin: ${endDate}`, 20, 90);
-        doc.text(`Precio total: $${(selectedPlan.price * ticketCountValue).toFixed(2)}`, 20, 100);
-        doc.text(`ID de compra: ${data.purchase_id}`, 20, 110);
+        doc.setFontSize(18)
+        doc.text("Membership Ticket", 20, 20)
 
-        // Generar QR único
+        doc.setFontSize(12)
+        doc.text(`Plan: ${selectedPlan.name}`, 20, 40)
+
+        const desc = doc.splitTextToSize(
+            `Description: ${selectedPlan.description}`,
+            120
+        )
+        doc.text(desc, 20, 50)
+
+        doc.text(`Duration: ${selectedPlan.duration} days`, 20, 70)
+        doc.text(`Tickets: ${ticketCountValue}`, 20, 80)
+        doc.text(`Start: ${startDate}`, 20, 90)
+        doc.text(`End: ${endDate}`, 20, 100)
+
+        doc.text(
+            `Total: $${(selectedPlan.price * ticketCountValue).toFixed(2)}`,
+            20,
+            110
+        )
+
+        doc.text(`Purchase ID: ${data.purchase_id}`, 20, 120)
+
+        // 🔥 QR SEGURO (NO BLOQUEA TODO SI FALLA)
         const qrData = JSON.stringify({
             purchase_id: data.purchase_id,
             user_id: 1,
-            plan_id: selectedPlan.id_affiliation,
+            plan_id: selectedPlan.id,
             quantity: ticketCountValue
-        });
+        })
 
-        // Generar QR usando API pública
-        const qrURL = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrData)}`;
+        const qrURL =
+            `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(qrData)}`
 
-        // convertir a imagen para jsPDF
-        const img = new Image();
-        img.crossOrigin = "anonymous";
-        img.src = qrURL;
+        try {
+            const img = new Image()
+            img.crossOrigin = "anonymous"
+            img.src = qrURL
 
-        await new Promise(resolve => {
-            img.onload = resolve;
-        });
+            await new Promise((resolve) => {
+                img.onload = resolve
+                img.onerror = resolve // 👈 IMPORTANTE: no rompe flujo
+            })
 
-        doc.addImage(img, 'PNG', 150, 20, 40, 40);
+            doc.addImage(img, 'PNG', 150, 30, 40, 40)
 
-        // Descargar PDF
-        doc.save(`Ticket_${selectedPlan.plan_type}_${data.purchase_id}.pdf`);
+        } catch (e) {
+            console.warn("QR failed, continuing PDF without it")
+        }
 
-        closeModal();
+        doc.save(`Ticket_${selectedPlan.name}_${data.purchase_id}.pdf`)
+
+        closeModal()
 
     } catch (error) {
-        console.error("Error:", error);
+        console.error("Error:", error)
     }
 }

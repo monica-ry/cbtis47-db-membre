@@ -153,7 +153,7 @@ async function loginAdmin() {
 }
 
 
-/* REGISTER  */
+/* REGISTER */
 async function registerUser() {
 
     const username = document.getElementById('regUsername');
@@ -164,28 +164,52 @@ async function registerUser() {
 
     errorBox.innerText = "";
 
+    // VALIDAR
     if (!username.value || !email.value || !phone.value || !password.value) {
+
         errorBox.innerText = "All fields are required.";
         return;
     }
 
-    const response = await fetch("/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-            username: username.value,
-            email: email.value,
-            phone: phone.value,
-            password: password.value
-        })
-    });
+    try {
 
-    const data = await response.json();
+        const response = await fetch("/register", {
 
-    if (!response.ok) {
-        errorBox.innerText = data.message;
-        return;
+            method: "POST",
+
+            headers: {
+                "Content-Type": "application/json"
+            },
+
+            body: JSON.stringify({
+                username: username.value,
+                email: email.value,
+                phone: phone.value,
+                password: password.value
+            })
+        });
+
+        const data = await response.json();
+
+        // ERROR
+        if (!response.ok) {
+
+            errorBox.innerText = data.message;
+
+            console.log(data.error);
+
+            return;
+        }
+
+        // EXITO
+        alert("Account created successfully!");
+
+        window.location.href = "index.html";
+
+    } catch (error) {
+
+        console.error(error);
+
+        errorBox.innerText = "Connection error.";
     }
-
-    window.location.href = "index.html";
 }

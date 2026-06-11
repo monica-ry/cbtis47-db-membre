@@ -4,143 +4,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amusement Park</title>
+    <title>Lu Loo Land</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
+    <!-- NAVBAR -->
     <div class="top-menu">
 
         <div class="menu-logo">
-            <img src="images/logo.png" alt="logo">
+            <img src="images/logo.jpeg" alt="logo">
         </div>
 
         <div class="menu-links">
-
-            <div class="menu-item" onclick="checkAccess('memberships.html')">
-                Membership
-            </div>
-
-            <div class="menu-item" onclick="location.href=('games.html')">
-                Games
-            </div>
-
-            <div class="menu-item" onclick="location.href=('restaurants.html')">
-                Restaurant
-            </div>
-
-            <div class="menu-item" onclick="location.href=('info.html')">
-                Park information
-            </div>
-
+            <div class="menu-item" onclick="location.href='dashboard.html'">Home</div>
+            <div class="menu-item" onclick="checkAccess('memberships.html')">Membership</div>
+            <div class="menu-item" onclick="location.href='games.html'">Games</div>
+            <div class="menu-item" onclick="location.href='restaurants.html'">Restaurant</div>
+            <div class="menu-item" onclick="location.href='parkInfo.html'">Park Info</div>
+            <div class="menu-item" onclick="location.href='tickets.html'">Tickets</div>
         </div>
 
         <div class="menu-msg" onclick="checkAccess('messages.html')">
-            <img src="images/msspark.png" alt="mess">
+            <img src="images/msspark.png" alt="messages">
         </div>
+
+        <div class="menu-profile" id="accountButton">
+            <span id="userName">Log in</span>
+        </div>
+
     </div>
 
-    <div class="header">Amusement Park</div>
-    <p class="greeting">Welcome!</p>
+    <!-- HERO NUEVO -->
+    <section class="hero-home">
+
+        <div class="hero-overlay"></div>
+
+        <div class="hero-content">
+            <h1>LU LOO LAND</h1>
+            <p>Where fantasy becomes reality</p>
+
+            <div class="hero-buttons">
+                <button onclick="location.href='games.html'">Explore Attractions</button>
+                <button onclick="checkAccess('memberships.html')">Get Membership</button>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- NOTIFICACIONES-->
+    <div class="notification-box" id="notificationBox"></div>
+
+    <!-- EVENTS -->
     <div class="section-container">
         <div class="sub"><a href="events.html">Recent events</a></div>
+
         <div class="carousel">
-            <div class="slides">
-                <div class="slide active">
-                    <img src="images/atrac1.png">
-                    <div class="slide-text">
-                        <h3>New roller coaster</h3>
-                        <p>Come and enjoy the new attraction!</p>
-                    </div>
-                </div>
-                <div class="slide">
-                    <img src="images/atrac2.png">
-                    <div class="slide-text">
-                        <h3>A little dip!!</h3>
-                        <p>Are you afraid of getting wet?</p>
-                    </div>
-                </div>
-                <div class="slide">
-                    <img src="images/atrac3.png">
-                    <div class="slide-text">
-                        <h3>Will you save the goth?</h3>
-                        <p>Enjoy this theme</p>
-                    </div>
-                </div>
-            </div>
+            <div class="slides" id="eventsSlides"></div>
             <div class="dots"></div>
         </div>
     </div>
 
+    <!-- GAMES -->
     <div class="section-container">
         <p class="sub"><a href="games.html">Park attractions</a></p>
+
         <div class="carousel">
-            <div class="slides">
-                <div class="slide active">
-                    <img src="images/atrac4.png">
-                    <div class="slide-text">
-                        <h3>Wheel of Fortune</h3>
-                        <p>Panoramic views from the heights</p>
-                    </div>
-                </div>
-                <div class="slide">
-                    <img src="images/atrac5.png">
-                    <div class="slide-text">
-                        <h3>Carousel</h3>
-                        <p>Rocking horses that go up and down with music</p>
-                    </div>
-                </div>
-                <div class="slide">
-                    <img src="images/atrac6.png">
-                    <div class="slide-text">
-                        <h3>Flying Chairs</h3>
-                        <p>Swings that spin at high speed</p>
-                    </div>
-                </div>
-            </div>
+            <div class="slides" id="gamesSlides"></div>
             <div class="dots"></div>
         </div>
     </div>
 
+    <!-- RESTAURANTS -->
     <div class="section-container">
         <p class="sub"><a href="restaurants.html">Restaurants</a></p>
+
         <div class="carousel">
-            <div class="slides">
-                <div class="slide active">
-                    <img src="images/atrac7.png">
-                    <div class="slide-text">
-                        <h3>Be Our Guest Restaurant</h3>
-                        <p>It allows you to dine inside the "Beauty and the Beast" castle</p>
-                    </div>
-                </div>
-                <div class="slide">
-                    <img src="images/atrac8.png">
-                    <div class="slide-text">
-                        <h3>Agrabah Café</h3>
-                        <p>A buffet inspired by the markets of Aladdin</p>
-                    </div>
-                </div>
-                <div class="slide">
-                    <img src="images/atrac9.png">
-                    <div class="slide-text">
-                        <h3>Victoria & Albert's</h3>
-                        <p>Famous for his elegance</p>
-                    </div>
-                </div>
-            </div>
+            <div class="slides" id="restaurantsSlides"></div>
             <div class="dots"></div>
         </div>
     </div>
 
+    <!-- LOCATION -->
     <div class="section-container">
         <p class="sub">Location</p>
-        <p class="sub">2450 Horizon Avenue, Blue Lake Recreational District, Aurora City, Sun State, Mexico</p>
-            <p>The park is located near Blue Lake, a tourist area known for its panoramic views and green spaces,
-                about 15 minutes from downtown Aurora City.</p>
+        <p class="game-desc" id="parkLocation"></p>
     </div>
+
+    <!-- TEMPLATE -->
+    <template id="slide-template">
+        <div class="slide">
+            <img class="slide-img">
+            <div class="slide-text">
+                <h3 class="slide-title"></h3>
+                <p class="slide-desc"></p>
+            </div>
+        </div>
+    </template>
+
+    <!-- ACCOUNT MODAL -->
+    <div class="modal-overlay" id="accountModal">
+
+        </di<div class="account-modal">
+
+        <div class="account-header">
+
+            <div class="account-avatar">
+                
+            </div>
+
+            <div class="account-info">
+                <h2>My Account</h2>
+                <span>Lu Loo Land Member</span>
+            </div>
+
+        </div>
+
+        <div class="account-body">
+
+            <div class="account-item">
+                <label>Username</label>
+                <p id="modalUsername"></p>
+            </div>
+
+            <div class="account-item">
+                <label>Email</label>
+                <p id="modalEmail"></p>
+            </div>
+
+            <button id="logoutBtn">
+                Log out
+            </button>
+
+        </div>
+
+    </div>
+
     <script src="js/auth.js"></script>
-    <script src="js/carousel.js"></script>
+    <script src="js/dashboard.js?v=3"></script>
+    <script src="js/carousel.js?v=3"></script>
+    <script src="js/parkInfo.js"></script>
 
 </body>
 

@@ -8,10 +8,12 @@
 </head>
 
 <body>
+
+    <!-- TOP MENU -->
     <div class="top-menu">
 
         <div class="menu-logo">
-            <img src="images/logo.png">
+            <img src="images/logo.jpeg" alt="logo">
         </div>
 
         <div class="menu-links">
@@ -28,22 +30,64 @@
                 Restaurant
             </div>
 
-            <div class="menu-item" onclick="location.href='info.html'">
+            <div class="menu-item" onclick="location.href='parkInfo.html'">
                 Park information
             </div>
 
         </div>
 
-        <div class="menu-msg">
-            <img src="images/msspark.png">
+        <div class="menu-msg" onclick="checkAccess('messages.html')">
+            <img src="images/msspark.png" alt="messages">
+        </div>
+
+        <div class="menu-profile" id="accountButton">
+            <span id="userName">Log in</span>
         </div>
 
     </div>
+
+    <!-- TITLE -->
     <h1 class="header">Park Attractions</h1>
 
-    <div class="content-container" id="gamesContainer"></div>
+    <!-- CONTENT -->
+    <div class="games-wrapper">
+        <div class="content-container" id="gamesContainer"></div>
+    </div>
 
-    <script src="js/games.js"></script>
+    <!-- TEMPLATE -->
+    <template id="game-template">
+        <div class="game-card">
+            <img class="game-img">
+            <h3 class="game-name"></h3>
+            <p class="game-desc"></p>
+        </div>
+    </template>
+
+    <!-- ACCOUNT MODAL -->
+    <div class="modal-overlay" id="accountModal">
+
+        <div class="account-modal">
+
+            <h2>Account</h2>
+
+            <p><strong>Username:</strong></p>
+            <p id="modalUsername"></p>
+
+            <p><strong>Email:</strong></p>
+            <p id="modalEmail"></p>
+
+            <button id="logoutBtn">
+                Log out
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- SCRIPTS -->
+    <script src="js/auth.js"></script>
+    <script src="js/games.js" defer></script>
+
 </body>
 
 </html>

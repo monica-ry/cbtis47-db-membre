@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+function initCarousel() {
 
     const carousels = document.querySelectorAll(".carousel");
 
@@ -8,9 +8,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const slides = carousel.querySelectorAll(".slide");
         const dotsContainer = carousel.querySelector(".dots");
 
-        let index = 0;
+        if (!slidesContainer || !dotsContainer || slides.length === 0) return;
 
-        /* crear puntos */
+        dotsContainer.innerHTML = "";
+
+        let index = 0;
 
         slides.forEach((_, i) => {
 
@@ -20,42 +22,31 @@ document.addEventListener("DOMContentLoaded", () => {
             if (i === 0) dot.classList.add("active");
 
             dot.addEventListener("click", () => {
-
                 index = i;
                 showSlide();
-
             });
 
             dotsContainer.appendChild(dot);
-
         });
 
         const dots = dotsContainer.querySelectorAll(".dot");
 
         function showSlide() {
 
-            slidesContainer.style.transform =
-                `translateX(-${index * 100}%)`;
+            if (!dots[index]) return;
 
-            dots.forEach(dot => dot.classList.remove("active"));
+            slidesContainer.style.transform = `translateX(-${index * 100}%)`;
+
+            dots.forEach(d => d.classList.remove("active"));
             dots[index].classList.add("active");
-
         }
 
         function autoSlide() {
-
-            index++;
-
-            if (index >= slides.length) {
-                index = 0;
-            }
-
+            index = (index + 1) % slides.length;
             showSlide();
-
         }
 
+        showSlide();
         setInterval(autoSlide, 4000);
-
     });
-
-});
+}
